@@ -1,10 +1,11 @@
-import logo from './logo.svg';
 import './App.css';
+
+import Message from './components/Message';
 
 function App() {
   return (
-    <div className="App">
-      <h1>This is frontend!</h1>
+    <div>
+      <Message></Message>
     </div>
   );
 }
