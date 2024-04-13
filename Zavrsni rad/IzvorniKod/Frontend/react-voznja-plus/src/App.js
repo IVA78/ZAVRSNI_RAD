@@ -1,11 +1,13 @@
-import './App.css';
+import "./App.css";
 
-import Message from './components/Message';
+import Message from "./components/Message";
+import ListGroup from "./components/ListGroup";
+import Alert from "./components/Alert";
 
 function App() {
   return (
     <div>
-      <Message></Message>
+      <Alert></Alert>
     </div>
   );
 }

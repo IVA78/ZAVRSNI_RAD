@@ -31,7 +31,7 @@ function Message() {
         });
     }, []);
 
-    return <h1>{initialValue}!</h1>;
+    return <h1>{initialValue}Hello World!</h1>;
 }
 
 export default Message;
