@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
 
-import { Text } from '@chakra-ui/react';
+import { Text, background } from '@chakra-ui/react';
 
 import style from './Message.module.css';
 
 function Message() {
+  const textStyle = {
+    fontSize: '6xl',
+    color: 'blue',
+    background: 'grey'
+  };
+
   const [initialValue, setInitialValue] = useState('');
 
   useEffect(() => {
@@ -37,9 +43,12 @@ function Message() {
   }, []);
 
   return (
-    <Text className={style.text} fontSize="6xl">
+    /**
+     <Text className={style.text} fontSize="6xl">
       {initialValue}
     </Text>
+     */
+    <Text sx={textStyle}>{initialValue}</Text>
   );
 }
 
