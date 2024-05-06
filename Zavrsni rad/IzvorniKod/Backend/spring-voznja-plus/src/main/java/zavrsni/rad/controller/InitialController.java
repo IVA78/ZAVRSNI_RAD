@@ -12,7 +12,7 @@ public class InitialController {
 
     @GetMapping()
     public ResponseEntity<String> getInitialValue() {
-        return ResponseEntity.ok("Hello from the backend");
+        return ResponseEntity.ok("Hello from the backend again!");
     }
 
 }
