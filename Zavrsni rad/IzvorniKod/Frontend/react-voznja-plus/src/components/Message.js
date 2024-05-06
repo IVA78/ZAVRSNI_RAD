@@ -8,12 +8,7 @@ function Message() {
   const textStyle = {
     fontSize: '6xl',
     color: 'blue',
-    background: 'grey',
-    ':hover': {
-      color: 'black',
-      background: 'blue',
-      filter: 'blur'
-    }
+    background: 'grey'
   };
 
   const [initialValue, setInitialValue] = useState('');
