@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import { Grid, GridItem, Image, Text, Button, Box } from '@chakra-ui/react';
 
 export default function Home() {
@@ -19,7 +20,7 @@ export default function Home() {
           minHeight={{ base: '50vh', lg: '100vh' }}
           position="relative"
         >
-          <Box position="relative" width="100%">
+          <Box position="relative" width="100%" marginTop="3em" padding="2em">
             <Image
               src="/images/driving.jpg"
               alt="driving"
@@ -37,7 +38,7 @@ export default function Home() {
               padding="1em"
               color="white"
               borderRadius="md"
-              width="100%"
+              width="95%"
               fontSize="3em"
             >
               <Text fontSize="xl">Sigurna vožnja, sretno putovanje.</Text>
@@ -58,6 +59,7 @@ export default function Home() {
             padding="2em"
             bg="RGBA(0, 0, 0, 0.08)"
             borderRadius="md"
+            fontSize="1.2em"
           >
             Dobrodošli u Vožnja +, inovativnu internetsku aplikaciju za praćenje
             i unaprjeđenje vaše vozačke obuke!
@@ -84,6 +86,7 @@ export default function Home() {
               size="md"
               border="1px solid black"
               marginTop="5em"
+              marginBottom="5em"
               backgroundColor="RGBA(0, 0, 0, 0.06)"
               _hover={{
                 backgroundColor: 'RGBA(0, 0, 0, 0.10)'
@@ -94,6 +97,7 @@ export default function Home() {
           </NavLink>
         </GridItem>
       </Grid>
+      <Footer></Footer>
     </>
   );
 }
