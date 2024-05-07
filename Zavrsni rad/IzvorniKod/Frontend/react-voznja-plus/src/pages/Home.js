@@ -52,7 +52,12 @@ export default function Home() {
           flexDirection="column"
           alignItems="center"
         >
-          <Text marginTop="3em" padding="2em">
+          <Text
+            marginTop="3em"
+            padding="2em"
+            bg="RGBA(0, 0, 0, 0.08)"
+            borderRadius="md"
+          >
             Dobrodošli u Vožnja +, inovativnu internetsku aplikaciju za praćenje
             i unaprjeđenje vaše vozačke obuke!
             <br />
@@ -77,8 +82,9 @@ export default function Home() {
             size="md"
             border="1px solid black"
             marginTop="5em"
+            backgroundColor="RGBA(0, 0, 0, 0.06)"
             _hover={{
-              backgroundColor: 'RGBA(0, 0, 0, 0.08)'
+              backgroundColor: 'RGBA(0, 0, 0, 0.10)'
             }}
           >
             Započnimo!

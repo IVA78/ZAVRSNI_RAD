@@ -24,7 +24,7 @@ export default function Navbar() {
       p="10px"
       alignItems="center"
       justifyContent="space-between"
-      paddingBottom="2em"
+      paddingBottom="1em"
       fontFamily="revert-layer"
     >
       <GridItem
@@ -56,7 +56,7 @@ export default function Navbar() {
             justifyContent="center"
           >
             <ListItem
-              margin="1.5em"
+              margin=".5em"
               padding=".5em"
               _hover={{
                 backgroundColor: 'RGBA(0, 0, 0, 0.08)',
@@ -69,7 +69,7 @@ export default function Navbar() {
               </NavLink>
             </ListItem>
             <ListItem
-              margin="1.5em"
+              margin=".5em"
               padding=".5em"
               _hover={{
                 backgroundColor: 'RGBA(0, 0, 0, 0.08)',
@@ -86,7 +86,7 @@ export default function Navbar() {
               </NavLink>
             </ListItem>
             <ListItem
-              margin="1.5em"
+              margin=".5em"
               padding=".5em"
               _hover={{
                 backgroundColor: 'RGBA(0, 0, 0, 0.08)',
@@ -99,7 +99,7 @@ export default function Navbar() {
               </NavLink>
             </ListItem>
             <ListItem
-              margin="1.5em"
+              margin=".5em"
               padding=".5em"
               _hover={{
                 backgroundColor: 'RGBA(0, 0, 0, 0.08)',
