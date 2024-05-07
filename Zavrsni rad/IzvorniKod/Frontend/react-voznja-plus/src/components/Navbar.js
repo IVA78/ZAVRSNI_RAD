@@ -54,9 +54,11 @@ export default function Navbar() {
             fontSize="1.5em"
             alignItems="center"
             justifyContent="center"
+            paddingRight="5em"
+            paddingLeft="5em"
           >
             <ListItem
-              margin=".5em"
+              margin=".em"
               padding=".5em"
               _hover={{
                 backgroundColor: 'RGBA(0, 0, 0, 0.08)',

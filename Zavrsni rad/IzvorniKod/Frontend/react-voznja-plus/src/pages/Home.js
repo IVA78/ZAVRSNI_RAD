@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 import Navbar from '../components/Navbar';
 import { Grid, GridItem, Image, Text, Button, Box } from '@chakra-ui/react';
@@ -77,18 +78,20 @@ export default function Home() {
             sigurnijoj vožnji danas!
           </Text>
 
-          <Button
-            mt={4}
-            size="md"
-            border="1px solid black"
-            marginTop="5em"
-            backgroundColor="RGBA(0, 0, 0, 0.06)"
-            _hover={{
-              backgroundColor: 'RGBA(0, 0, 0, 0.10)'
-            }}
-          >
-            Započnimo!
-          </Button>
+          <NavLink to="/login">
+            <Button
+              mt={4}
+              size="md"
+              border="1px solid black"
+              marginTop="5em"
+              backgroundColor="RGBA(0, 0, 0, 0.06)"
+              _hover={{
+                backgroundColor: 'RGBA(0, 0, 0, 0.10)'
+              }}
+            >
+              Započnimo!
+            </Button>
+          </NavLink>
         </GridItem>
       </Grid>
     </>
