@@ -14,6 +14,11 @@ import {
 } from '@chakra-ui/react';
 
 export default function Login() {
+  const handleButtonClick = () => {
+    // Add your logic here to handle the button click
+    console.log('Button clicked!');
+  };
+
   return (
     <>
       <Navbar></Navbar>
@@ -37,6 +42,7 @@ export default function Login() {
           padding="1em"
           color="white"
           borderRadius="md"
+          border="solid black"
           width={{ base: '40%', lg: '30%' }}
           height={{ base: '60%', lg: '40%' }}
           fontSize="3em"
@@ -63,6 +69,7 @@ export default function Login() {
             type="submit"
             _hover={{ color: 'white', bg: 'rgba(0, 0, 0, 0.06)' }}
             marginTop={{ base: '1em', lg: '3em' }}
+            onClick={handleButtonClick}
           >
             Prijavi se!
           </Button>
