@@ -1,11 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import {
-  ArrowRightIcon,
-  InfoIcon,
-  PhoneIcon,
-  ArrowForwardIcon
-} from '@chakra-ui/icons';
+import { ArrowRightIcon } from '@chakra-ui/icons';
 import {
   List,
   Grid,
@@ -79,11 +74,7 @@ export default function Navbar() {
               }}
             >
               <NavLink to="/login">
-                <ListIcon
-                  as={ArrowForwardIcon}
-                  color="black"
-                  marginRight="1em"
-                />
+                <ListIcon as={ArrowRightIcon} color="black" marginRight="1em" />
                 Prijava
               </NavLink>
             </ListItem>
@@ -96,7 +87,7 @@ export default function Navbar() {
               }}
             >
               <NavLink to="/info">
-                <ListIcon as={InfoIcon} color="black" marginRight="1em" />
+                <ListIcon as={ArrowRightIcon} color="black" marginRight="1em" />
                 Info
               </NavLink>
             </ListItem>
@@ -109,7 +100,7 @@ export default function Navbar() {
               }}
             >
               <NavLink to="/contact">
-                <ListIcon as={PhoneIcon} color="black" marginRight="1em" />
+                <ListIcon as={ArrowRightIcon} color="black" marginRight="1em" />
                 Kontakt
               </NavLink>
             </ListItem>

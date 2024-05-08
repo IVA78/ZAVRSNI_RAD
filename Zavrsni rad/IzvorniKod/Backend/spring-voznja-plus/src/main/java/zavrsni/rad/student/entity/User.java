@@ -7,13 +7,16 @@ import java.time.LocalDate;
 
 //user can be student, instructor or administrator - DEFINED BY THE ROLE
 @Entity
-@Table(name="user")
+@Table(name="users")
 public class User {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //kandidat
+    //instruktor
+    //administrator
     @Column(name="role", nullable = false)
     private String role;
 
