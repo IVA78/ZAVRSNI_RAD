@@ -1,4 +1,4 @@
-package zavrsni.rad.student.entity;
+package zavrsni.rad.users.entity;
 
 import jakarta.persistence.*;
 
@@ -30,6 +30,9 @@ public class User {
 
     @Column(name="email", nullable = false, unique = true)
     private String email;
+
+    @Column(name="password", nullable = false)
+    private String password;
 
     @Column(name="phonenumber", nullable = false)
     private String phoneNumber;
