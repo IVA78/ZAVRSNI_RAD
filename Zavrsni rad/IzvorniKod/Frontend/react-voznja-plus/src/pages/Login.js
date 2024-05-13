@@ -13,13 +13,15 @@ import {
   Input,
   FormHelperText,
   Box,
-  Button
+  Button,
+  useToast
 } from '@chakra-ui/react';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const toast = useToast();
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -48,17 +50,35 @@ export default function Login() {
         if (!response.ok) {
           throw new Error('No user found');
         }
-        return response.text();
+        return response.json();
       })
       .then((response) => {
-        console.log('access token: ', response);
-        localStorage.setItem('accessToken', response);
+        const token = response.token;
+        const role = response.role;
+        console.log('token: ', token);
+        console.log('role: ', role);
+        localStorage.setItem('token', token);
+        localStorage.setItem('role', role);
         navigate('/home');
 
         //izgeneriraj Toast komponentu za uspjesan login
+        toast({
+          title: 'Upješna prijava!',
+          description: 'Uspješno ste se prijavili.',
+          status: 'success',
+          duration: 3000,
+          isClosable: true
+        });
       })
       .catch((error) => {
         //izgeneriraj Toast komponentu za neuspjesan login
+        toast({
+          title: 'Neuspješna prijava!',
+          description: 'Prijava nije uspješna. Provjerite unesene podatke.',
+          status: 'error',
+          duration: 3000,
+          isClosable: true
+        });
       });
   };
 

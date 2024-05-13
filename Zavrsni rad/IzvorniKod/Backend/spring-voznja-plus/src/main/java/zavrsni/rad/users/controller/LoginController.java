@@ -16,6 +16,9 @@ import zavrsni.rad.users.entity.User;
 import zavrsni.rad.users.service.UserService;
 import zavrsni.rad.users.controller.dto.LoginForm;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/login")
 public class LoginController {
@@ -30,7 +33,7 @@ public class LoginController {
     private JWTGenerator jwtGenerator;
 
     @PostMapping()
-    public ResponseEntity<String> login(@RequestBody LoginForm loginform) {
+    public ResponseEntity<Map<String, String >> login(@RequestBody LoginForm loginform) {
 
         System.out.println("Podaci: "+ loginform.getEmail()+ " "+ loginform.getPassword());
 
@@ -43,8 +46,11 @@ public class LoginController {
         String username = jwtGenerator.getUsernameFromJWT(token);
 
         User user = userService.login(username);
+        Map<String, String> response = new HashMap<>();
+        response.put("token", token);
+        response.put("role", user.getRole());
 
-        return ResponseEntity.ok(token);
+        return ResponseEntity.ok(response);
     }
 
 }
