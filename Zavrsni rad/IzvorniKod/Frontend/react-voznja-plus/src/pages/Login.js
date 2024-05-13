@@ -3,6 +3,9 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import {
   Image,
   FormControl,
@@ -14,9 +17,49 @@ import {
 } from '@chakra-ui/react';
 
 export default function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
   const handleButtonClick = () => {
-    // Add your logic here to handle the button click
-    console.log('Button clicked!');
+    //logika za provjeru
+    console.log('Email:', email);
+    console.log('Password:', password);
+    const data = {
+      email: email,
+      password: password
+    };
+
+    //slanje na backend
+    fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('No user found');
+        }
+        return response.text();
+      })
+      .then((response) => {
+        console.log('access token: ', response);
+        localStorage.setItem('accessToken', response);
+        navigate('/home');
+
+        //izgeneriraj Toast komponentu za uspjesan login
+      })
+      .catch((error) => {
+        //izgeneriraj Toast komponentu za neuspjesan login
+      });
   };
 
   return (
@@ -53,11 +96,15 @@ export default function Login() {
         >
           <FormControl>
             <FormLabel>Email addresa</FormLabel>
-            <Input type="email" />
+            <Input type="email" value={email} onChange={handleEmailChange} />
           </FormControl>
           <FormControl>
             <FormLabel>Lozinka</FormLabel>
-            <Input type="email" />
+            <Input
+              type="password"
+              value={password}
+              onChange={handlePasswordChange}
+            />
             <FormHelperText color="white">
               Unesite vaše korisničke podatke.
             </FormHelperText>

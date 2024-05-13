@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Text, background } from '@chakra-ui/react';
-
-import style from './Message.module.css';
+import { Text } from '@chakra-ui/react';
 
 function Message() {
   const textStyle = {

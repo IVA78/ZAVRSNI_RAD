@@ -32,6 +32,8 @@ public class LoginController {
     @PostMapping()
     public ResponseEntity<String> login(@RequestBody LoginForm loginform) {
 
+        System.out.println("Podaci: "+ loginform.getEmail()+ " "+ loginform.getPassword());
+
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginform.getEmail(), loginform.getPassword()));
 
@@ -44,7 +46,5 @@ public class LoginController {
 
         return ResponseEntity.ok(token);
     }
-
-
 
 }
