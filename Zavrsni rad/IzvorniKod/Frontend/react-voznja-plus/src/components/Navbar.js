@@ -8,10 +8,68 @@ import {
   ListItem,
   ListIcon,
   Box,
-  Image
+  Image,
+  Flex
 } from '@chakra-ui/react';
 
 export default function Navbar() {
+  //svaka komponenta/ekran treba znati koju ulogu ima trenutni korisnik
+  const role = sessionStorage.getItem('role');
+  console.log('role u navbaru: ', role);
+
+  const listaAnoniman = ['Početna', 'Prijava', 'Info', 'Kontakt'];
+
+  const listaKandidat = [
+    'Početna',
+    'Info',
+    'Profil',
+    'Kalendar',
+    'Napredak',
+    'Odjava'
+  ];
+
+  const listaInstruktor = [
+    'Početna',
+    'Info',
+    'Profil',
+    'Kalendar',
+    'Kandidati',
+    'Odjava'
+  ];
+
+  const listaAdministrator = [
+    'Početna',
+    'Info',
+    'Profil',
+    'Instruktori',
+    'Kandidati',
+    'Odjava'
+  ];
+
+  const putanje = {
+    Početna: '/home',
+    Prijava: '/login',
+    Info: '/info',
+    Kontakt: '/contact',
+    Profil: '/data', //tu cu trebat neki id slati
+    Kalendar: '/calendar', //isto id
+    Napredak: '/progress', //isto id
+    Odjava: '/logout',
+    Kandidati: '/candidates', //isto id
+    Instruktori: '/instructors'
+  };
+
+  let lista;
+  if (role === 'kandidat') {
+    lista = listaKandidat;
+  } else if (role === 'instruktor') {
+    lista = listaInstruktor;
+  } else if (role === 'administrator') {
+    lista = listaAdministrator;
+  } else {
+    lista = listaAnoniman;
+  }
+
   return (
     <Grid
       templateColumns="repeat(6,1fr)"
@@ -52,58 +110,30 @@ export default function Navbar() {
             paddingRight="5em"
             paddingLeft="5em"
           >
-            <ListItem
-              margin=".em"
-              padding=".5em"
-              _hover={{
-                backgroundColor: 'RGBA(0, 0, 0, 0.08)',
-                borderRadius: 'full'
-              }}
-            >
-              <NavLink to="/">
-                <ListIcon as={ArrowRightIcon} color="black" marginRight="2em" />
-                Početna
-              </NavLink>
-            </ListItem>
-            <ListItem
-              margin=".5em"
-              padding=".5em"
-              _hover={{
-                backgroundColor: 'RGBA(0, 0, 0, 0.08)',
-                borderRadius: 'full'
-              }}
-            >
-              <NavLink to="/login">
-                <ListIcon as={ArrowRightIcon} color="black" marginRight="1em" />
-                Prijava
-              </NavLink>
-            </ListItem>
-            <ListItem
-              margin=".5em"
-              padding=".5em"
-              _hover={{
-                backgroundColor: 'RGBA(0, 0, 0, 0.08)',
-                borderRadius: 'full'
-              }}
-            >
-              <NavLink to="/info">
-                <ListIcon as={ArrowRightIcon} color="black" marginRight="1em" />
-                Info
-              </NavLink>
-            </ListItem>
-            <ListItem
-              margin=".5em"
-              padding=".5em"
-              _hover={{
-                backgroundColor: 'RGBA(0, 0, 0, 0.08)',
-                borderRadius: 'full'
-              }}
-            >
-              <NavLink to="/contact">
-                <ListIcon as={ArrowRightIcon} color="black" marginRight="1em" />
-                Kontakt
-              </NavLink>
-            </ListItem>
+            {lista.map((stavka) => (
+              <ListItem
+                key={stavka}
+                margin=".5em"
+                padding=".5em"
+                _hover={{
+                  backgroundColor: 'RGBA(0, 0, 0, 0.08)',
+                  borderRadius: 'full'
+                }}
+              >
+                <NavLink
+                  to={putanje[stavka]}
+                  display="flex"
+                  alignItems="center"
+                >
+                  <ListIcon
+                    as={ArrowRightIcon}
+                    color="black"
+                    marginRight="2em"
+                  />
+                  <Flex alignItems="center">{stavka}</Flex>
+                </NavLink>
+              </ListItem>
+            ))}
           </List>
         </Box>
       </GridItem>

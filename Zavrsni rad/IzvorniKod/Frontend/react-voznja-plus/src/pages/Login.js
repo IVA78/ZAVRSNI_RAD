@@ -55,10 +55,11 @@ export default function Login() {
       .then((response) => {
         const token = response.token;
         const role = response.role;
-        console.log('token: ', token);
-        console.log('role: ', role);
-        localStorage.setItem('token', token);
-        localStorage.setItem('role', role);
+        //console.log('token: ', token);
+        //console.log('role: ', role);
+        sessionStorage.setItem('token', token);
+        sessionStorage.setItem('role', role);
+        console.log('role in login: ', localStorage.getItem('role'));
         navigate('/home');
 
         //izgeneriraj Toast komponentu za uspjesan login
