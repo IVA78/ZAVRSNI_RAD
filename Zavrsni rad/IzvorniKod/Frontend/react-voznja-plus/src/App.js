@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Info from './pages/Info';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
+import Logout from './components/Logout';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/info" element={<Info />} />
           <Route path="/login" element={<Login />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/logout" element={<Logout />} />
         </Routes>
       </div>
     </Router>

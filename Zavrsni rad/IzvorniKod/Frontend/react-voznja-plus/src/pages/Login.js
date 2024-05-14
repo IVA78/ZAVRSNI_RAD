@@ -64,7 +64,7 @@ export default function Login() {
 
         //izgeneriraj Toast komponentu za uspjesan login
         toast({
-          title: 'Upješna prijava!',
+          title: 'Uspješna prijava!',
           description: 'Uspješno ste se prijavili.',
           status: 'success',
           duration: 3000,
