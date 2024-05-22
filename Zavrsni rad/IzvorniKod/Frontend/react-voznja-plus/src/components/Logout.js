@@ -15,13 +15,6 @@ export default function Logout() {
 
   useEffect(() => {
     navigate('/home');
-    toast({
-      title: 'Uspješna odjava!',
-      description: 'Uspješno ste se odjavili.',
-      status: 'success',
-      duration: 3000,
-      isClosable: true
-    });
   }, []);
 
   return <></>;

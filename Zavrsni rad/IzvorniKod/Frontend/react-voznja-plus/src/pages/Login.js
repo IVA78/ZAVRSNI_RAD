@@ -132,10 +132,12 @@ export default function Login() {
           </FormControl>
           <Button
             mt={4}
-            colorScheme="gray"
-            color="black"
+            colorScheme="white"
+            color="white"
             type="submit"
-            _hover={{ color: 'white', bg: 'rgba(0, 0, 0, 0.06)' }}
+            variant="outline"
+            borderColor="RGBA(23,24,16)"
+            _hover={{ color: 'white', bg: 'RGBA(23,24,16)' }}
             marginTop={{ base: '1em', lg: '3em' }}
             onClick={handleButtonClick}
           >
