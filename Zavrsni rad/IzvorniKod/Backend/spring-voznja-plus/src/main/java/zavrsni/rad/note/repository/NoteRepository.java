@@ -7,4 +7,6 @@ import zavrsni.rad.users.entity.User;
 public interface NoteRepository extends JpaRepository<Note, Long> {
 
     Note findByUserId(Long id);
+
+
 }

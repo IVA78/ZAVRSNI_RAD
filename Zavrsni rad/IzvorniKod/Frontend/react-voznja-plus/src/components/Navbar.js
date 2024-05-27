@@ -51,7 +51,7 @@ export default function Navbar() {
     Prijava: '/login',
     Info: '/info',
     Kontakt: '/contact',
-    Profil: '/data', //tu cu trebat neki id slati
+    Profil: '/profil', //tu cu trebat neki id slati
     Kalendar: '/calendar', //isto id
     Napredak: '/progress', //isto id
     Odjava: '/logout',

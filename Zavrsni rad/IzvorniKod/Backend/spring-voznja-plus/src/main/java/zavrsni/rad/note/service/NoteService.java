@@ -1,5 +1,6 @@
 package zavrsni.rad.note.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,24 @@ public class NoteService {
             return new NoteForm(note.getContent());
         } else {
             throw new UsernameNotFoundException("Korisnik ne postoji!");
+        }
+
+    }
+
+    @Transactional
+    public boolean changeNote(String username, String content) {
+        String email = username;
+        User user = userRepository.findUserByEmail(email);
+        Long userId = user.getId();
+
+        if(user != null ){
+            Note note = noteRepository.findByUserId(userId);
+            note.setContent(content);
+            noteRepository.save(note);
+
+            return true;
+        } else {
+            return false;
         }
 
     }
