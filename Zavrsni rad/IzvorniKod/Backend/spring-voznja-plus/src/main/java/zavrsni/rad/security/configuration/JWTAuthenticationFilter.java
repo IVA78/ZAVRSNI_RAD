@@ -57,6 +57,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         String bearerToken = request.getHeader("Authorization");
         System.out.println("This is full token in getJWTFromRequest: " + bearerToken);
         if(StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
+            System.out.println("I am passing token!");
             return bearerToken.substring(7, bearerToken.length());
         }
         return null;

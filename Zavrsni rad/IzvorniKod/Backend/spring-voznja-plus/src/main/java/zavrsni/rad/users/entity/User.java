@@ -1,6 +1,7 @@
 package zavrsni.rad.users.entity;
 
 import jakarta.persistence.*;
+import zavrsni.rad.note.entity.Note;
 
 import java.time.LocalDate;
 
@@ -37,8 +38,17 @@ public class User {
     @Column(name="phonenumber", nullable = false)
     private String phoneNumber;
 
-    @Column(name = "note", columnDefinition = "TEXT")
-    private String note;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "note_id", referencedColumnName = "id")
+    private Note note;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getRole() {
         return role;
@@ -96,11 +106,11 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getNote() {
+    public Note getNote() {
         return note;
     }
 
-    public void setNote(String note) {
+    public void setNote(Note note) {
         this.note = note;
     }
 }
