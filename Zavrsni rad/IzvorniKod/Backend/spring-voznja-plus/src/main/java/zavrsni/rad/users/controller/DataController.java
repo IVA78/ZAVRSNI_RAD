@@ -31,8 +31,8 @@ public class DataController {
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<UsersForm>> getAllUsersBasedOnRole(@RequestHeader("Authorization") String token, @RequestBody RoleForm roleForm) {
-        List<UsersForm> users = userService.getUsersData(jwtGenerator.getUsernameFromJWT(token), roleForm.getRole());
+    public ResponseEntity<List<UsersForm>> getAllUsersBasedOnRole(@RequestHeader("Authorization") String token, @RequestHeader("Role") String role) {
+        List<UsersForm> users = userService.getUsersData(jwtGenerator.getUsernameFromJWT(token), role);
         return ResponseEntity.ok(users);
     }
 
