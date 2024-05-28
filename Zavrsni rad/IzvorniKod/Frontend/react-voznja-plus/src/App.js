@@ -10,6 +10,7 @@ import Logout from './components/Logout';
 import Profil from './pages/Profil';
 import Candidates from './pages/Candidates';
 import Instructors from './pages/Instructors';
+import Progress from './pages/Progress';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/logout" element={<Logout />} />
           <Route path="/profil" element={<Profil />} />
           <Route path="/candidates" element={<Candidates></Candidates>}></Route>
+          <Route path="/progress" element={<Progress></Progress>}></Route>
           <Route
             path="/instructors"
             element={<Instructors></Instructors>}
