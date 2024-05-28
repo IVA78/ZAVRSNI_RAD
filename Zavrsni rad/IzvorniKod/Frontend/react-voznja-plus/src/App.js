@@ -8,6 +8,7 @@ import Contact from './pages/Contact';
 import Login from './pages/Login';
 import Logout from './components/Logout';
 import Profil from './pages/Profil';
+import Candidates from './pages/Candidates';
 
 function App() {
   return (
@@ -20,7 +21,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/logout" element={<Logout />} />
-          <Route path="profil" element={<Profil />} />
+          <Route path="/profil" element={<Profil />} />
+          <Route path="/candidates" element={<Candidates></Candidates>}></Route>
         </Routes>
       </div>
     </Router>
