@@ -1,14 +1,12 @@
-package zavrsni.rad.note.controller;
+package zavrsni.rad.user.note.controller;
 
-import org.aspectj.weaver.ast.Not;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
-import zavrsni.rad.note.controller.dto.NoteForm;
-import zavrsni.rad.note.entity.Note;
-import zavrsni.rad.note.service.NoteService;
+import zavrsni.rad.user.note.controller.dto.NoteForm;
+import zavrsni.rad.user.note.service.NoteService;
 import zavrsni.rad.security.configuration.JWTGenerator;
 
 @RestController

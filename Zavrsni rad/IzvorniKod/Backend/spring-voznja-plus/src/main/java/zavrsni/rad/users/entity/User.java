@@ -1,9 +1,11 @@
 package zavrsni.rad.users.entity;
 
 import jakarta.persistence.*;
-import zavrsni.rad.note.entity.Note;
+import zavrsni.rad.driving.hours.entity.DrivingHours;
+import zavrsni.rad.user.note.entity.Note;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 //user can be student, instructor or administrator - DEFINED BY THE ROLE
@@ -41,6 +43,9 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "note_id", referencedColumnName = "id")
     private Note note;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DrivingHours> drivingHours;
 
     public Long getId() {
         return id;

@@ -1,4 +1,4 @@
-package zavrsni.rad.note.controller.dto;
+package zavrsni.rad.user.note.controller.dto;
 
 public class NoteForm {
 

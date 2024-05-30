@@ -1,13 +1,12 @@
-package zavrsni.rad.note.service;
+package zavrsni.rad.user.note.service;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import zavrsni.rad.note.controller.dto.NoteForm;
-import zavrsni.rad.note.entity.Note;
-import zavrsni.rad.note.repository.NoteRepository;
-import zavrsni.rad.users.controller.dto.DataForm;
+import zavrsni.rad.user.note.controller.dto.NoteForm;
+import zavrsni.rad.user.note.entity.Note;
+import zavrsni.rad.user.note.repository.NoteRepository;
 import zavrsni.rad.users.entity.User;
 import zavrsni.rad.users.repository.UserRepository;
 

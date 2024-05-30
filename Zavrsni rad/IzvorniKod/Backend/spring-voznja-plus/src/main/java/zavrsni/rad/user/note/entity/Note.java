@@ -1,4 +1,4 @@
-package zavrsni.rad.note.entity;
+package zavrsni.rad.user.note.entity;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
@@ -44,4 +44,6 @@ public class Note {
     public void setUser(User user) {
         this.user = user;
     }
+
+
 }
