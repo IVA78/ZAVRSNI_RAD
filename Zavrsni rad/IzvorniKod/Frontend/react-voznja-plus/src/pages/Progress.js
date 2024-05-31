@@ -208,8 +208,8 @@ export default function Progress() {
                           </GridItem>
                           <GridItem position="relative">
                             <Image
-                              src="/images/me.jpg"
-                              alt="driving_image"
+                              src="/images/"
+                              alt="no_data"
                               padding="5%"
                               paddingBottom="20%"
                               backgroundColor="RGBA(0, 0, 0, 0.06)"

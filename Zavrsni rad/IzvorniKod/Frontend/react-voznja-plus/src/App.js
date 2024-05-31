@@ -12,6 +12,7 @@ import Candidates from './pages/Candidates';
 import Instructors from './pages/Instructors';
 import Progress from './pages/Progress';
 import StudentProgress from './pages/StudentProgress';
+import StudentCalendar from './pages/StudentCalendar';
 
 function App() {
   return (
@@ -31,7 +32,10 @@ function App() {
             path="/studentProgress"
             element={<StudentProgress></StudentProgress>}
           ></Route>
-
+          <Route
+            path="/studentCalendar"
+            element={<StudentCalendar></StudentCalendar>}
+          ></Route>
           <Route
             path="/instructors"
             element={<Instructors></Instructors>}
