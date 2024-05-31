@@ -20,16 +20,18 @@ import {
   Grid,
   Text,
   Flex,
-  Button,
-  ModalFooter,
   ModalBody,
   ModalHeader,
   Modal,
-  ModalOverlay,
   ModalContent,
   useDisclosure,
-  ModalCloseButton
+  ModalCloseButton,
+  Image
 } from '@chakra-ui/react';
+
+import { MdDateRange, MdEditNote } from 'react-icons/md';
+import { FaCheck } from 'react-icons/fa';
+import { FaMapMarkedAlt } from 'react-icons/fa';
 
 export default function Progress() {
   const [stepsA, setStepsA] = useState([]);
@@ -42,6 +44,8 @@ export default function Progress() {
   const [drivingHoursBLength, setDrivingHoursBLength] = useState(0);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [modalData, setModalData] = useState(null);
+  const [backendData, setBackendData] = useState(null);
 
   const token = sessionStorage.getItem('token');
 
@@ -71,21 +75,31 @@ export default function Progress() {
         return response.json();
       })
       .then((response) => {
-        console.log('driving hours: ', response);
         setDrivingHours(response);
         setDrivingHoursA(drivingHours.filter((d) => d.field === 'V'));
         setDrivingHoursB(drivingHours.filter((d) => d.field === 'C'));
-        console.log('driving hoursA: ', drivingHoursA);
-        console.log('driving hoursB: ', drivingHoursB);
+
         setDrivingHoursALength(drivingHoursA.length);
         setDrivingHoursBLength(drivingHoursB.length);
-        console.log('a length: ', drivingHoursALength);
-        console.log('b length: ', drivingHoursBLength);
       })
       .catch((error) => {
         console.log('Dogodila se pogreska u progr: ', error);
       });
   });
+
+  const handleStepClickA = (index) => {
+    const clickedStepData = stepsA[index];
+    setModalData(clickedStepData);
+    setBackendData(drivingHoursA[index]);
+    onOpen();
+  };
+
+  const handleStepClickB = (index) => {
+    const clickedStepData = stepsB[index];
+    setModalData(clickedStepData);
+    setBackendData(drivingHoursB[index]);
+    onOpen();
+  };
 
   return (
     <>
@@ -130,7 +144,11 @@ export default function Progress() {
               colorScheme="green"
             >
               {stepsA.map((step, index) => (
-                <Step key={index} cursor="pointer" onClick={onOpen}>
+                <Step
+                  key={index}
+                  cursor="pointer"
+                  onClick={() => handleStepClickA(index)}
+                >
                   <StepIndicator>
                     <StepStatus
                       complete={<StepIcon />}
@@ -148,21 +166,70 @@ export default function Progress() {
                     blockScrollOnMount={false}
                     isOpen={isOpen}
                     onClose={onClose}
+                    size="2xl"
                   >
                     <ModalContent>
-                      <ModalHeader>Modal Title</ModalHeader>
+                      <ModalHeader>
+                        {modalData ? modalData.title : ''}
+                      </ModalHeader>
                       <ModalCloseButton />
                       <ModalBody>
-                        <Text fontWeight="bold" mb="1rem">
-                          You can scroll the content behind the modal
-                        </Text>
+                        <Grid
+                          templateColumns="repeat(2, 1fr)"
+                          gap={4}
+                          marginBottom="2em"
+                        >
+                          <GridItem>
+                            <Flex
+                              direction="column"
+                              align="left"
+                              marginTop="2em"
+                              marginLeft="2em"
+                            >
+                              <Text display="flex" alignItems="center">
+                                <Box marginRight="4">
+                                  <MdDateRange />
+                                </Box>
+                                {backendData ? backendData.date : ''}
+                              </Text>
+                              <Text display="flex" alignItems="center">
+                                <Box marginRight="4">
+                                  <FaCheck />
+                                </Box>
+                                {backendData ? backendData.status : ''}
+                              </Text>
+                              <Text display="flex" alignItems="center">
+                                <Box marginRight="4">
+                                  <MdEditNote />
+                                </Box>
+                                {backendData ? backendData.note : ''}
+                              </Text>
+                            </Flex>
+                          </GridItem>
+                          <GridItem position="relative">
+                            <Image
+                              src="/images/me.jpg"
+                              alt="driving_image"
+                              padding="5%"
+                              paddingBottom="20%"
+                              backgroundColor="RGBA(0, 0, 0, 0.06)"
+                            ></Image>
+                            <Text
+                              display="flex"
+                              alignItems="center"
+                              fontSize="2xl"
+                              position="absolute"
+                              bottom="1%"
+                              left="17%"
+                            >
+                              <Box marginRight="4">
+                                <FaMapMarkedAlt />
+                              </Box>
+                              Odvožena ruta
+                            </Text>
+                          </GridItem>
+                        </Grid>
                       </ModalBody>
-
-                      <ModalFooter>
-                        <Button colorScheme="blue" mr={3} onClick={onClose}>
-                          Close
-                        </Button>
-                      </ModalFooter>
                     </ModalContent>
                   </Modal>
 
@@ -182,7 +249,11 @@ export default function Progress() {
               colorScheme="green"
             >
               {stepsB.map((step, index) => (
-                <Step key={index}>
+                <Step
+                  key={index}
+                  cursor="pointer"
+                  onClick={() => handleStepClickB(index)}
+                >
                   <StepIndicator>
                     <StepStatus
                       complete={<StepIcon />}
@@ -195,6 +266,77 @@ export default function Progress() {
                     <StepTitle>{step.title}</StepTitle>
                     <StepDescription>{step.description}</StepDescription>
                   </Box>
+
+                  <Modal
+                    blockScrollOnMount={false}
+                    isOpen={isOpen}
+                    onClose={onClose}
+                    size="2xl"
+                  >
+                    <ModalContent>
+                      <ModalHeader>
+                        {modalData ? modalData.title : ''}
+                      </ModalHeader>
+                      <ModalCloseButton />
+                      <ModalBody>
+                        <Grid
+                          templateColumns="repeat(2, 1fr)"
+                          gap={4}
+                          marginBottom="2em"
+                        >
+                          <GridItem>
+                            <Flex
+                              direction="column"
+                              align="left"
+                              marginTop="2em"
+                              marginLeft="2em"
+                            >
+                              <Text display="flex" alignItems="center">
+                                <Box marginRight="4">
+                                  <MdDateRange />
+                                </Box>
+                                {backendData ? backendData.date : ''}
+                              </Text>
+                              <Text display="flex" alignItems="center">
+                                <Box marginRight="4">
+                                  <FaCheck />
+                                </Box>
+                                {backendData ? backendData.status : ''}
+                              </Text>
+                              <Text display="flex" alignItems="center">
+                                <Box marginRight="4">
+                                  <MdEditNote />
+                                </Box>
+                                {backendData ? backendData.note : ''}
+                              </Text>
+                            </Flex>
+                          </GridItem>
+                          <GridItem position="relative">
+                            <Image
+                              src="/images/me.jpg"
+                              alt="driving_image"
+                              padding="5%"
+                              paddingBottom="20%"
+                              backgroundColor="RGBA(0, 0, 0, 0.06)"
+                            ></Image>
+                            <Text
+                              display="flex"
+                              alignItems="center"
+                              fontSize="2xl"
+                              position="absolute"
+                              bottom="1%"
+                              left="17%"
+                            >
+                              <Box marginRight="4">
+                                <FaMapMarkedAlt />
+                              </Box>
+                              Odvožena ruta
+                            </Text>
+                          </GridItem>
+                        </Grid>
+                      </ModalBody>
+                    </ModalContent>
+                  </Modal>
 
                   <StepSeparator />
                 </Step>
