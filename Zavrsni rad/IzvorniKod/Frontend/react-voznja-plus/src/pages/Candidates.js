@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -10,6 +11,7 @@ import { Grid, GridItem, Flex, Image, Text, Box } from '@chakra-ui/react';
 export default function Candidates() {
   const [users, setUsers] = useState(null);
   const [roleSearch, setRoleSearch] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = sessionStorage.getItem('token');
@@ -39,7 +41,10 @@ export default function Candidates() {
       });
   });
 
-  const handleClickOnUser = (e) => {
+  const handleClickOnUser = (email) => {
+    sessionStorage.setItem('studentEmail', email);
+    console.log(sessionStorage.getItem('studentEmail'));
+    navigate('/studentProgress');
     console.log('click!');
   };
 
@@ -72,7 +77,7 @@ export default function Candidates() {
                   _hover={{
                     cursor: 'pointer'
                   }}
-                  onClick={handleClickOnUser}
+                  onClick={() => handleClickOnUser(user.email)}
                 >
                   {user.firstName} {user.lastName}
                 </Text>

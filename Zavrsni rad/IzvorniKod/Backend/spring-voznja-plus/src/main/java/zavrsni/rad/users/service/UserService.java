@@ -51,7 +51,7 @@ public class UserService {
 
             for(User selectedUser : userRepository.findAllByRole(role)) {
                 System.out.println("User email: "+ selectedUser.getEmail());
-                users.add(new UsersForm(selectedUser.getFirstName(), selectedUser.getLastName(), selectedUser.getRole()));
+                users.add(new UsersForm(selectedUser.getFirstName(), selectedUser.getLastName(), selectedUser.getRole(), selectedUser.getEmail()));
             }
 
         }
