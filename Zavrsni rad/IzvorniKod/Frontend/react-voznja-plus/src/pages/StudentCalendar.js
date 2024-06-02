@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
+import 'moment/locale/hr';
 
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -19,11 +20,20 @@ import {
   Text,
   ModalFooter,
   Button,
-  Input
+  Input,
+  Flex,
+  Card,
+  CardBody,
+  CardHeader,
+  Heading,
+  Stack,
+  StackDivider,
+  Image
 } from '@chakra-ui/react';
 
 export default function StudentCalendar() {
   const localizer = momentLocalizer(moment);
+  moment.locale('hr');
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -111,18 +121,100 @@ export default function StudentCalendar() {
   return (
     <>
       <Navbar></Navbar>
-      <Grid templateRows="repeat(2,1fr)">
+      <Grid>
+        <GridItem margin="1em">
+          <Flex display="row">
+            <Card backgroundColor="RGBA(0, 0, 0, 0.06)" borderRadius="md">
+              <CardHeader>
+                <Heading size="md">Upute za korištenje</Heading>
+                <Text pt="2" fontSize="sm">
+                  U kalendar možete unijeti vremenski period u kojem ste
+                  dostupni za održavanje obuke. U označenom periodu instruktor
+                  će zakazati termin koji će biti vidljiv u kalendaru.
+                </Text>
+              </CardHeader>
+
+              <CardBody>
+                <Stack divider={<StackDivider />} spacing="4">
+                  <Box>
+                    <Heading size="xs" textTransform="uppercase">
+                      Dodavanje
+                    </Heading>
+                    <Text pt="2" fontSize="sm">
+                      Odaberite vremenski period u kojem želite dodati događaj.
+                      To može biti jedan dan ili raspon više dana. U formi da
+                      dodavanje događaja unesite potrebne podatke. Svoj odabir
+                      potvrdite klikom na gumb "Spremi".
+                    </Text>
+                  </Box>
+                  <Box>
+                    <Heading size="xs" textTransform="uppercase">
+                      Uređivanje
+                    </Heading>
+                    <Text pt="2" fontSize="sm">
+                      Pronađite događaj koji želite urediti u svom kalendaru.
+                      Kliknite na događaj kako biste otvorili formu za
+                      uređivanje koja Vam omogućuje izmjenu postojećih detalja
+                      događaja. Kada završite s uređivanjem, kliknite na gumb
+                      "Spremi".
+                    </Text>
+                  </Box>
+                  <Box>
+                    <Heading size="xs" textTransform="uppercase">
+                      Brisanje
+                    </Heading>
+                    <Text pt="2" fontSize="sm">
+                      Pronađite događaj koji želite obrisati u svom kalendaru.
+                      Kliknite na događaj kako biste otvorili formu za
+                      uređivanje/brisanje koja Vam omogućuje izmjenu postojećih
+                      detalja događaja. Svoj odabir potvrdite klikom na gumb
+                      "Obriši".
+                    </Text>
+                  </Box>
+                </Stack>
+              </CardBody>
+            </Card>
+          </Flex>
+        </GridItem>
         <GridItem>
-          <Box margin="1em" padding=".5em" bg="RGBA(0, 0, 0, 0.06)">
+          <Box
+            margin="1em"
+            padding=".5em"
+            bg="RGBA(0, 0, 0, 0.06)"
+            border="1px solid black"
+            borderRadius="md"
+          >
             <Calendar
               localizer={localizer}
               events={events}
               startAccessor="start"
               endAccessor="end"
-              style={{ height: 500 }}
+              style={{ height: 600 }}
               selectable={true}
               onSelectSlot={handleSelectedSlot}
               onSelectEvent={handleSelectedEvent}
+              messages={{
+                date: 'Datum',
+                time: 'Vrijeme',
+                event: 'Događaj',
+                allDay: 'Cijeli dan',
+                week: 'Tjedan',
+                work_week: 'Radni tjedan',
+                day: 'Dan',
+                month: 'Mjesec',
+                previous: 'Prethodni',
+                next: 'Sljedeći',
+                yesterday: 'Jučer',
+                tomorrow: 'Sutra',
+                today: 'Danas',
+                agenda: 'Agenda',
+                noEventsInRange: 'Nema događaja u ovom razdoblju.',
+                showMore: (total) => `+ Prikaži još (${total})`
+              }}
+              formats={{
+                monthHeaderFormat: (date, culture, localizer) =>
+                  localizer.format(date, 'MMMM YYYY', culture) // Ensure month name is displayed in Croatian
+              }}
             />
           </Box>
           <Modal
@@ -159,7 +251,9 @@ export default function StudentCalendar() {
             </ModalContent>
           </Modal>
         </GridItem>
-        <GridItem>item2</GridItem>
+        <GridItem>
+          <Image src="/images/Road graphics.png" alt="no_data"></Image>
+        </GridItem>
       </Grid>
       <Footer></Footer>
     </>
