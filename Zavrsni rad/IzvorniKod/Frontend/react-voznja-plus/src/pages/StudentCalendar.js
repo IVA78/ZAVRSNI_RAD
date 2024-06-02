@@ -252,7 +252,13 @@ export default function StudentCalendar() {
           </Modal>
         </GridItem>
         <GridItem>
-          <Image src="/images/Road graphics.png" alt="no_data"></Image>
+          <Image
+            src="/images/Road graphics.png"
+            alt="no_data"
+            w="100%"
+            h="100%"
+            objectFit="cover"
+          />
         </GridItem>
       </Grid>
       <Footer></Footer>
