@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -26,7 +27,8 @@ import {
   ModalContent,
   useDisclosure,
   ModalCloseButton,
-  Image
+  Image,
+  Button
 } from '@chakra-ui/react';
 
 import { MdDateRange, MdEditNote } from 'react-icons/md';
@@ -46,6 +48,7 @@ export default function StudentProgress() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [modalData, setModalData] = useState(null);
   const [backendData, setBackendData] = useState(null);
+  const navigate = useNavigate();
 
   const token = sessionStorage.getItem('token');
 
@@ -105,6 +108,10 @@ export default function StudentProgress() {
     onOpen();
   };
 
+  const toCalendar = () => {
+    navigate('/studentCalendar');
+  };
+
   return (
     <>
       <Navbar></Navbar>
@@ -113,6 +120,20 @@ export default function StudentProgress() {
         justifyContent="center"
         alignItems="center"
       >
+        <GridItem colSpan={4} margin="1em">
+          <Button
+            mt={4}
+            colorScheme="white"
+            color="black"
+            variant="outline"
+            borderColor="RGBA(23,24,16)"
+            _hover={{ color: 'white', bg: 'RGBA(23,24,16)' }}
+            onClick={toCalendar}
+            justifySelf="end"
+          >
+            Pogledaj kalendar
+          </Button>
+        </GridItem>
         <GridItem
           colSpan={{ base: 3, lg: 2 }}
           display="flex"
@@ -125,6 +146,7 @@ export default function StudentProgress() {
             Želiš vidjeti bilješke sa sata? Klik na točkicu!
           </Text>
         </GridItem>
+
         <GridItem
           colSpan="4"
           display="flex"
