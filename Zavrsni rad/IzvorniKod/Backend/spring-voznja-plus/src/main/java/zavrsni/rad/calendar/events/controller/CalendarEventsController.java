@@ -11,6 +11,7 @@ import zavrsni.rad.driving.hours.controller.dto.DrivingHoursDTO;
 import zavrsni.rad.security.configuration.JWTGenerator;
 import zavrsni.rad.user.note.controller.dto.NoteForm;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -24,9 +25,14 @@ public class CalendarEventsController {
     private JWTGenerator jwtGenerator;
 
     @GetMapping("/getStudentEvents")
-    public ResponseEntity<List<CalendarEventsDTO>> getStudentEvents(@RequestHeader("Authorization") String token){
+    public ResponseEntity<List<CalendarEventsDTO>> getStudentEvents(@RequestHeader("Authorization") String token, @RequestHeader("studentEmail") String studentEmail){
 
-        List<CalendarEventsDTO> drivingHoursDTOList = calendarEventsService.getEventsStudent(jwtGenerator.getUsernameFromJWT(token));
+        List<CalendarEventsDTO> drivingHoursDTOList = new ArrayList<>();
+        if(studentEmail.equals("")){
+            drivingHoursDTOList = calendarEventsService.getEventsStudent(jwtGenerator.getUsernameFromJWT(token));
+        } else {
+            drivingHoursDTOList = calendarEventsService.getEventsStudent(studentEmail);
+        }
 
         return ResponseEntity.ok(drivingHoursDTOList);
     }
