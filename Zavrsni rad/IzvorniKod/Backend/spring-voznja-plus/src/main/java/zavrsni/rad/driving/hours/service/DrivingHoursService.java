@@ -2,7 +2,7 @@ package zavrsni.rad.driving.hours.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import zavrsni.rad.driving.hours.dto.DrivingHoursDTO;
+import zavrsni.rad.driving.hours.controller.dto.DrivingHoursDTO;
 import zavrsni.rad.driving.hours.entity.DrivingHours;
 import zavrsni.rad.driving.hours.repository.DrivingHoursRepository;
 import zavrsni.rad.users.entity.User;

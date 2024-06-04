@@ -1,4 +1,4 @@
-package zavrsni.rad.driving.hours.dto;
+package zavrsni.rad.driving.hours.controller.dto;
 
 import zavrsni.rad.driving.hours.entity.LessonStatus;
 

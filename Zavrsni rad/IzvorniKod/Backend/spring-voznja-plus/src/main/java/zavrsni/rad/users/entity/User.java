@@ -1,6 +1,7 @@
 package zavrsni.rad.users.entity;
 
 import jakarta.persistence.*;
+import zavrsni.rad.calendar.events.entity.CalendarEvents;
 import zavrsni.rad.driving.hours.entity.DrivingHours;
 import zavrsni.rad.user.note.entity.Note;
 
@@ -46,6 +47,14 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DrivingHours> drivingHours;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "student_id", referencedColumnName = "id")
+    private List<CalendarEvents> calendarEvents;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "instructor_id", referencedColumnName = "id")
+    private List<CalendarEvents> instructorCalendarEvents;
 
     public Long getId() {
         return id;
@@ -117,5 +126,29 @@ public class User {
 
     public void setNote(Note note) {
         this.note = note;
+    }
+
+    public List<DrivingHours> getDrivingHours() {
+        return drivingHours;
+    }
+
+    public void setDrivingHours(List<DrivingHours> drivingHours) {
+        this.drivingHours = drivingHours;
+    }
+
+    public List<CalendarEvents> getCalendarEvents() {
+        return calendarEvents;
+    }
+
+    public void setCalendarEvents(List<CalendarEvents> calendarEvents) {
+        this.calendarEvents = calendarEvents;
+    }
+
+    public List<CalendarEvents> getInstructorCalendarEvents() {
+        return instructorCalendarEvents;
+    }
+
+    public void setInstructorCalendarEvents(List<CalendarEvents> instructorCalendarEvents) {
+        this.instructorCalendarEvents = instructorCalendarEvents;
     }
 }

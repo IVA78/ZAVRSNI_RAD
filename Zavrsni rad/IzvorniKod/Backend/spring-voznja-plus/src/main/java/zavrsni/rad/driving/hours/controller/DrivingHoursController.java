@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import zavrsni.rad.driving.hours.dto.DrivingHoursDTO;
+import zavrsni.rad.driving.hours.controller.dto.DrivingHoursDTO;
 import zavrsni.rad.driving.hours.service.DrivingHoursService;
 import zavrsni.rad.security.configuration.JWTGenerator;
 
