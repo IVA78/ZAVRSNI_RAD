@@ -104,4 +104,19 @@ public class CalendarEventsService {
         return true;
     }
 
+
+    @Transactional
+    public boolean deleteEvent(String userEmail, CalendarEventsDTO calendarEvent) {
+
+        User user = userRepository.findUserByEmail(userEmail);
+        Long userId = user.getId();
+
+        //provjera autorizacije?
+
+        CalendarEvents event = calendarEventsRepository.findByEventId(calendarEvent.getId());
+        calendarEventsRepository.deleteEventById(event.getId());
+
+        return true;
+    }
+
 }

@@ -13,6 +13,8 @@ public interface CalendarEventsRepository extends JpaRepository<CalendarEvents, 
     @Query("SELECT ce FROM CalendarEvents ce WHERE ce.id = :eventId")
     CalendarEvents findByEventId(@Param("eventId") Long eventId);
 
+    void deleteEventById(Long eventId);
+
     @Query("SELECT ce FROM CalendarEvents ce WHERE ce.student.id = :studentId")
     List<CalendarEvents> findAllByStudentId(@Param("studentId") Long studentId);
 

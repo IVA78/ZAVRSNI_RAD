@@ -71,4 +71,17 @@ public class CalendarEventsController {
         }
     }
 
+    @DeleteMapping("/deleteEvent")
+    public ResponseEntity<Void> deleteEvent(@RequestHeader("Authorization") String token, @RequestBody CalendarEventsDTO calendarEvent) {
+
+        boolean done = calendarEventsService.deleteEvent(jwtGenerator.getUsernameFromJWT(token), calendarEvent);
+
+        if(done) {
+            System.out.println("Event deleted!");
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            throw new UsernameNotFoundException("Pogreska!");
+        }
+    }
+
 }

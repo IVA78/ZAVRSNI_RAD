@@ -234,7 +234,7 @@ export default function StudentProgress() {
                           </GridItem>
                           <GridItem position="relative">
                             <Image
-                              src="/images/me.jpg"
+                              src="/images/"
                               alt="driving_image"
                               padding="5%"
                               paddingBottom="20%"
