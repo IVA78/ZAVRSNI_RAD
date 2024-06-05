@@ -12,7 +12,8 @@ import Candidates from './pages/Candidates';
 import Instructors from './pages/Instructors';
 import Progress from './pages/Progress';
 import StudentProgress from './pages/StudentProgress';
-import StudentCalendar from './pages/StudentCalendar';
+import MyCalendar from './pages/MyCalendar';
+import UserCalendar from './pages/UserCalendar';
 
 function App() {
   return (
@@ -32,10 +33,12 @@ function App() {
             path="/studentProgress"
             element={<StudentProgress></StudentProgress>}
           ></Route>
+          <Route path="/mycalendar" element={<MyCalendar></MyCalendar>}></Route>
           <Route
-            path="/studentCalendar"
-            element={<StudentCalendar></StudentCalendar>}
+            path="/usercalendar"
+            element={<UserCalendar></UserCalendar>}
           ></Route>
+
           <Route
             path="/instructors"
             element={<Instructors></Instructors>}

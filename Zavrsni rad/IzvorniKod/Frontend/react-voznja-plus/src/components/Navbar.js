@@ -52,7 +52,7 @@ export default function Navbar() {
     Info: '/info',
     Kontakt: '/contact',
     Profil: '/profil', //tu cu trebat neki id slati
-    Kalendar: '/studentCalendar', //isto id
+    Kalendar: '/mycalendar', //isto id
     Napredak: '/progress', //isto id
     Odjava: '/logout',
     Kandidati: '/candidates', //isto id

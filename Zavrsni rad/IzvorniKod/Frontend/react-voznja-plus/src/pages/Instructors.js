@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -10,10 +11,12 @@ import { Grid, GridItem, Flex, Image, Text, Box } from '@chakra-ui/react';
 export default function Instructors() {
   const [users, setUsers] = useState(null);
   const [roleSearch, setRoleSearch] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = sessionStorage.getItem('token');
     setRoleSearch('instruktor');
+    sessionStorage.setItem('roleSearch', roleSearch);
     console.log(roleSearch);
 
     fetch('/api/data/getAll', {
@@ -39,8 +42,9 @@ export default function Instructors() {
       });
   });
 
-  const handleClickOnUser = (e) => {
-    console.log('click!');
+  const handleClickOnUser = (email) => {
+    sessionStorage.setItem('instructorEmail', email);
+    navigate('/usercalendar');
   };
 
   return (
@@ -72,7 +76,7 @@ export default function Instructors() {
                   _hover={{
                     cursor: 'pointer'
                   }}
-                  onClick={handleClickOnUser}
+                  onClick={() => handleClickOnUser(user.email)}
                 >
                   {user.firstName} {user.lastName}
                 </Text>

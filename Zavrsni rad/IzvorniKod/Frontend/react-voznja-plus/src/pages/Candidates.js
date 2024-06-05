@@ -16,6 +16,7 @@ export default function Candidates() {
   useEffect(() => {
     const token = sessionStorage.getItem('token');
     setRoleSearch('kandidat');
+    sessionStorage.setItem('roleSearch', roleSearch);
     console.log(roleSearch);
 
     fetch('/api/data/getAll', {
@@ -43,7 +44,6 @@ export default function Candidates() {
 
   const handleClickOnUser = (email) => {
     sessionStorage.setItem('studentEmail', email);
-    console.log(sessionStorage.getItem('studentEmail'));
     navigate('/studentProgress');
     console.log('click!');
   };

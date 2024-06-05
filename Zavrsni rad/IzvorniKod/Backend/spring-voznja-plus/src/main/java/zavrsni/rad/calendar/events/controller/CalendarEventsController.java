@@ -26,7 +26,7 @@ public class CalendarEventsController {
     private JWTGenerator jwtGenerator;
 
     @GetMapping("/getStudentEvents")
-    public ResponseEntity<List<CalendarEventsDTO>> getStudentEvents(@RequestHeader("Authorization") String token, @RequestHeader("studentEmail") String studentEmail){
+    public ResponseEntity<List<CalendarEventsDTO>> getStudentEvents(@RequestHeader("Authorization") String token, @RequestHeader("StudentEmail") String studentEmail){
 
         List<CalendarEventsDTO> drivingHoursDTOList = new ArrayList<>();
         if(studentEmail.equals("")){
@@ -39,9 +39,14 @@ public class CalendarEventsController {
     }
 
     @GetMapping("/getInstructorEvents")
-    public ResponseEntity<List<CalendarEventsDTO>> getInstructorEvents(@RequestHeader("Authorization") String token){
+    public ResponseEntity<List<CalendarEventsDTO>> getInstructorEvents(@RequestHeader("Authorization") String token, @RequestHeader("InstructorEmail") String instructorEmail){
 
-        List<CalendarEventsDTO> drivingHoursDTOList = calendarEventsService.getEventsInstructor(jwtGenerator.getUsernameFromJWT(token));
+        List<CalendarEventsDTO> drivingHoursDTOList = new ArrayList<>();
+        if(instructorEmail.equals("")){
+            drivingHoursDTOList = calendarEventsService.getEventsInstructor(jwtGenerator.getUsernameFromJWT(token));
+        } else {
+            drivingHoursDTOList = calendarEventsService.getEventsInstructor(instructorEmail);
+        }
 
         return ResponseEntity.ok(drivingHoursDTOList);
     }

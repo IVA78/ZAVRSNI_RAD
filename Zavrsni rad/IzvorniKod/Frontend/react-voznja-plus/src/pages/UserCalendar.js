@@ -32,7 +32,7 @@ import {
 } from '@chakra-ui/react';
 import { json } from 'react-router-dom';
 
-export default function StudentCalendar() {
+export default function UserCalendar() {
   const localizer = momentLocalizer(moment);
   moment.locale('hr');
 
@@ -43,6 +43,7 @@ export default function StudentCalendar() {
   const [selectedDateEnd, setSelctedDateEnd] = useState(null);
   const [eventTitle, setEventTitle] = useState('');
   const [selectEvent, setSelectEvent] = useState(null);
+  const [email, setEmail] = useState('');
 
   const token = sessionStorage.getItem('token');
 
@@ -61,14 +62,15 @@ export default function StudentCalendar() {
 
   //dohvat podataka
   useEffect(() => {
-    //kandidat gleda svoj kalendar
-    if (sessionStorage.getItem('role') === 'kandidat') {
-      fetch('/api/calendar/getStudentEvents', {
+    if (sessionStorage.getItem('roleSearch') === 'instruktor') {
+      setEmail(sessionStorage.getItem('instructorEmail'));
+      console.log('instructorEmail in fetch: ', email);
+      fetch('/api/calendar/getInstructorEvents', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
           Authorization: token,
-          StudentEmail: ''
+          InstructorEmail: email
         }
       })
         .then((response) => {
@@ -92,13 +94,13 @@ export default function StudentCalendar() {
           console.log('Dogodila se pogreska u progr: ', error);
         });
     } else {
-      //kandidat ili administrator gledaju kalendar kandidata
+      setEmail(sessionStorage.getItem('studentEmail'));
       fetch('/api/calendar/getStudentEvents', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
           Authorization: token,
-          StudentEmail: sessionStorage.getItem('studentEmail')
+          StudentEmail: email
         }
       })
         .then((response) => {
@@ -122,6 +124,8 @@ export default function StudentCalendar() {
           console.log('Dogodila se pogreska u progr: ', error);
         });
     }
+
+    //kandidat ili administrator gledaju kalendar kandidata/instruktora
   });
 
   //dodavanje i uredjivanje

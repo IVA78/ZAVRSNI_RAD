@@ -109,7 +109,7 @@ export default function StudentProgress() {
   };
 
   const toCalendar = () => {
-    navigate('/studentCalendar');
+    navigate('/usercalendar');
   };
 
   return (
