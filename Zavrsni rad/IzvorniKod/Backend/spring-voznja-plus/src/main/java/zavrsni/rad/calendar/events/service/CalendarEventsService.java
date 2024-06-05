@@ -56,6 +56,7 @@ public class CalendarEventsService {
     }
 
 
+
     public boolean addEvent(String userEmail, String studentEmail, String title, ZonedDateTime startTime, ZonedDateTime endTime) {
 
         User user = userRepository.findUserByEmail(userEmail);
@@ -91,18 +92,29 @@ public class CalendarEventsService {
         return true;
     }
 
+
     public boolean updateEvent(String userEmail, CalendarEventsDTO calendarEvent) {
 
         User user = userRepository.findUserByEmail(userEmail);
         Long userId = user.getId();
+        System.out.println("SERVICE");
+        System.out.println("event.getId()" + calendarEvent.getId());
+        System.out.println("event.getTitle()" + calendarEvent.getTitle());
+        System.out.println("event.getStartTime()" + calendarEvent.getStartTime());
+        System.out.println("event.getEndTime()" + calendarEvent.getEndTime());
 
         CalendarEvents event = calendarEventsRepository.findByEventId(calendarEvent.getId());
         event.setTitle(calendarEvent.getTitle());
+        System.out.println("event.getId()" + event.getId());
+        System.out.println("event.getTitle()" + event.getTitle());
+        System.out.println("event.getStartTime()" + event.getStartTime());
+        System.out.println("event.getEndTime()" + event.getEndTime());
 
         calendarEventsRepository.save(event);
 
         return true;
     }
+
 
 
     @Transactional

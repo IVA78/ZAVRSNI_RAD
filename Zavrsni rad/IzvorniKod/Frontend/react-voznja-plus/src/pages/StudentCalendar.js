@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
@@ -30,6 +30,7 @@ import {
   StackDivider,
   Image
 } from '@chakra-ui/react';
+import { json } from 'react-router-dom';
 
 export default function StudentCalendar() {
   const localizer = momentLocalizer(moment);
@@ -37,32 +38,13 @@ export default function StudentCalendar() {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const myEventsList = [
-    {
-      title: 'Meeting with Bob',
-      start: new Date(2024, 6, 1, 10, 0, 0), // June 1, 2023, 10:00 AM
-      end: new Date(2024, 6, 1, 12, 0, 0), // June 1, 2023, 12:00 PM
-      allDay: false
-    },
-    {
-      title: 'Lunch Break',
-      start: new Date(2024, 6, 2, 12, 0, 0), // June 2, 2023, 12:00 PM
-      end: new Date(2024, 6, 2, 13, 0, 0), // June 2, 2023, 1:00 PM
-      allDay: false
-    },
-    {
-      title: 'Conference',
-      start: new Date(2024, 6, 3), // June 3, 2023, all day
-      end: new Date(2024, 6, 5), // June 5, 2023, all day
-      allDay: true
-    }
-  ];
-
   const [events, setEvents] = useState([]);
   const [selectedDateStart, setSelctedDateStart] = useState(null);
   const [selectedDateEnd, setSelctedDateEnd] = useState(null);
   const [eventTitle, setEventTitle] = useState('');
   const [selectEvent, setSelectEvent] = useState(null);
+
+  const token = sessionStorage.getItem('token');
 
   const handleSelectedSlot = (slotInfo) => {
     setSelctedDateStart(slotInfo.start);
@@ -77,46 +59,223 @@ export default function StudentCalendar() {
     setEventTitle(event.title);
   };
 
+  //dohvat podataka
+  useEffect(() => {
+    //kandidat gleda svoj kalendar
+    if (sessionStorage.getItem('role') === 'kandidat') {
+      fetch('/api/calendar/getStudentEvents', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token,
+          StudentEmail: ''
+        }
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('No data found');
+          }
+          return response.json();
+        })
+        .then((response) => {
+          const transofrmedData = response.map((event) => ({
+            id: event.id,
+            title: event.title,
+            start: new Date(event.startTime),
+            end: new Date(event.endTime)
+          }));
+
+          setEvents(transofrmedData);
+          //console.log('events after fetching: ', events);
+        })
+        .catch((error) => {
+          console.log('Dogodila se pogreska u progr: ', error);
+        });
+    } else {
+      //kandidat ili administrator gledaju kalendar kandidata
+      fetch('/api/calendar/getStudentEvents', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token,
+          StudentEmail: sessionStorage.getItem('studentEmail')
+        }
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('No data found');
+          }
+          return response.json();
+        })
+        .then((response) => {
+          const transofrmedData = response.map((event) => ({
+            id: event.id,
+            title: event.title,
+            start: new Date(event.startTime),
+            end: new Date(event.endTime)
+          }));
+
+          setEvents(transofrmedData);
+          //console.log('events after fetching: ', events);
+        })
+        .catch((error) => {
+          console.log('Dogodila se pogreska u progr: ', error);
+        });
+    }
+  });
+
+  //dodavanje i uredjivanje
   const saveEvent = () => {
-    if (eventTitle && selectedDateStart) {
+    //uredjivanje postojeceg dogadjaja
+    if (eventTitle) {
       if (selectEvent) {
-        console.log('in save: ', eventTitle);
-        const updatedEvent = { ...selectEvent, title: eventTitle };
-        const updatedEvents = events.map((event) =>
-          event.start === selectEvent.start && event.end === selectEvent.end
-            ? updatedEvent
-            : event
-        );
-        setEvents(updatedEvents);
+        const existingEvent = {
+          id: selectEvent.id,
+          title: eventTitle,
+          startTime: new Date(selectEvent.startTime),
+          endTime: new Date(selectEvent.endTime)
+        };
+        if (sessionStorage.getItem('role') === 'kandidat') {
+          fetch('/api/calendar/changeEvent', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: token
+            },
+            body: JSON.stringify(existingEvent)
+          })
+            .then((response) => {
+              console.log('response: ', response);
+              if (!response.ok) {
+                throw new Error('No data found');
+              }
+            })
+            .catch((error) => {
+              console.log('Dogodila se pogreska u progr: ', error);
+            });
+        } else {
+          //kandidat ili administrator gledaju kalendar kandidata
+          fetch('/api/calendar/changeEvent', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: token
+            },
+            body: JSON.stringify(existingEvent)
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error('No data found');
+              }
+              return response.json();
+            })
+            .catch((error) => {
+              console.log('Dogodila se pogreska u progr: ', error);
+            });
+        }
       } else {
+        //dodavanje novog dogadjaja
+        const moment = require('moment-timezone');
         const newEvent = {
           title: eventTitle,
-          start: selectedDateStart,
-          end: selectedDateEnd
+          startTime: moment(
+            selectedDateStart,
+            'ddd MMM DD YYYY HH:mm:ss [GMT]ZZ (zz)'
+          ).format('YYYY-MM-DDTHH:mm:ssZ'),
+          endTime: moment(
+            selectedDateEnd,
+            'ddd MMM DD YYYY HH:mm:ss [GMT]ZZ (zz)'
+          ).format('YYYY-MM-DDTHH:mm:ssZ')
         };
-        setEvents([...events, newEvent]);
+
+        //backend call
+        console.log('newEvent: ', newEvent);
+
+        if (sessionStorage.getItem('role') === 'kandidat') {
+          fetch('/api/calendar/putEvent', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: token,
+              studentEmail: ''
+            },
+            body: JSON.stringify(newEvent)
+          }).catch((error) => {
+            console.log('Dogodila se pogreska u progr: ', error);
+          });
+        } else {
+          //kandidat ili administrator gledaju kalendar kandidata
+          fetch('/api/calendar/putEvent', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: token,
+              studentEmail: sessionStorage.getItem('studentEmail')
+            },
+            body: JSON.stringify(newEvent)
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error('No data found');
+              }
+              return response.json();
+            })
+            .catch((error) => {
+              console.log('Dogodila se pogreska u progr: ', error);
+            });
+        }
       }
 
-      setEventTitle('');
-      setSelectEvent(null);
       onClose();
-    }
-  };
-
-  const deleteEvent = () => {
-    if (selectEvent) {
-      const updatedEvents = events.filter(
-        (event) =>
-          event.start !== selectEvent.start && event.end !== selectEvent.end
-      );
-      setEvents(updatedEvents);
       setEventTitle('');
       setSelectEvent(null);
     }
   };
 
-  console.log('events: ', events);
-  console.log('event title: ', eventTitle);
+  //brisanje
+  const deleteEvent = () => {
+    console.log('in delete: ', eventTitle);
+    console.log('selectedEvent: ', selectEvent);
+    console.log('eventTitle: ', eventTitle);
+    console.log('selectedDateStart: ', selectedDateStart);
+
+    const existingEvent = {
+      id: selectEvent.id,
+      title: eventTitle,
+      startTime: moment(
+        selectEvent.start,
+        'ddd MMM DD YYYY HH:mm:ss [GMT]ZZ (zz)'
+      ).format('YYYY-MM-DDTHH:mm:ssZ'),
+      endTime: moment(
+        selectEvent.end,
+        'ddd MMM DD YYYY HH:mm:ss [GMT]ZZ (zz)'
+      ).format('YYYY-MM-DDTHH:mm:ssZ')
+    };
+
+    console.log('existingEvent: ', existingEvent);
+
+    fetch('/api/calendar/deleteEvent', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token
+      },
+      body: JSON.stringify(existingEvent)
+    })
+      .then((response) => {
+        console.log('response: ', response);
+        if (!response.ok) {
+          throw new Error('No data found');
+        }
+      })
+      .catch((error) => {
+        console.log('Dogodila se pogreska u progr: ', error);
+      });
+
+    setEventTitle('');
+    setSelectEvent(null);
+    onClose();
+  };
 
   return (
     <>

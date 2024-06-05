@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import zavrsni.rad.calendar.events.controller.dto.CalendarEventsDTO;
+import zavrsni.rad.calendar.events.controller.dto.CalendarEventsForm;
 import zavrsni.rad.calendar.events.service.CalendarEventsService;
 import zavrsni.rad.driving.hours.controller.dto.DrivingHoursDTO;
 import zavrsni.rad.security.configuration.JWTGenerator;
@@ -46,7 +47,7 @@ public class CalendarEventsController {
     }
 
     @PostMapping("/putEvent")
-    public ResponseEntity<Void> putEvent(@RequestHeader("Authorization") String token, @RequestHeader("studentEmail") String studentEmail, @RequestBody CalendarEventsDTO eventForm) {
+    public ResponseEntity<Void> putEvent(@RequestHeader("Authorization") String token, @RequestHeader("studentEmail") String studentEmail, @RequestBody CalendarEventsForm eventForm) {
 
         boolean done = calendarEventsService.addEvent(jwtGenerator.getUsernameFromJWT(token), studentEmail, eventForm.getTitle(), eventForm.getStartTime(), eventForm.getEndTime());
 
@@ -73,6 +74,11 @@ public class CalendarEventsController {
 
     @DeleteMapping("/deleteEvent")
     public ResponseEntity<Void> deleteEvent(@RequestHeader("Authorization") String token, @RequestBody CalendarEventsDTO calendarEvent) {
+
+        System.out.println("CONTROLLER");
+        System.out.println("event.getTitle()" + calendarEvent.getTitle());
+        System.out.println("event.getStartTime()" + calendarEvent.getStartTime());
+        System.out.println("event.getEndTime()" + calendarEvent.getEndTime());
 
         boolean done = calendarEventsService.deleteEvent(jwtGenerator.getUsernameFromJWT(token), calendarEvent);
 
