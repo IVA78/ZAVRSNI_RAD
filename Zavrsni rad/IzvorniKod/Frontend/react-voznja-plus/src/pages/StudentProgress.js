@@ -200,11 +200,7 @@ export default function StudentProgress() {
                       </ModalHeader>
                       <ModalCloseButton />
                       <ModalBody>
-                        <Grid
-                          templateColumns="repeat(2, 1fr)"
-                          gap={4}
-                          marginBottom="2em"
-                        >
+                        <Grid gap={4} marginBottom="2em">
                           <GridItem>
                             <Flex
                               direction="column"
@@ -231,28 +227,6 @@ export default function StudentProgress() {
                                 {backendData ? backendData.note : ''}
                               </Text>
                             </Flex>
-                          </GridItem>
-                          <GridItem position="relative">
-                            <Image
-                              src="/images/"
-                              alt="driving_image"
-                              padding="5%"
-                              paddingBottom="20%"
-                              backgroundColor="RGBA(0, 0, 0, 0.06)"
-                            ></Image>
-                            <Text
-                              display="flex"
-                              alignItems="center"
-                              fontSize="2xl"
-                              position="absolute"
-                              bottom="1%"
-                              left="17%"
-                            >
-                              <Box marginRight="4">
-                                <FaMapMarkedAlt />
-                              </Box>
-                              Odvožena ruta
-                            </Text>
                           </GridItem>
                         </Grid>
                       </ModalBody>
@@ -306,7 +280,7 @@ export default function StudentProgress() {
                       <ModalCloseButton />
                       <ModalBody>
                         <Grid
-                          templateColumns="repeat(2, 1fr)"
+                          templateColumns="repeat(1, 1fr)"
                           gap={4}
                           marginBottom="2em"
                         >
@@ -336,28 +310,6 @@ export default function StudentProgress() {
                                 {backendData ? backendData.note : ''}
                               </Text>
                             </Flex>
-                          </GridItem>
-                          <GridItem position="relative">
-                            <Image
-                              src="/images/"
-                              alt="no_data"
-                              padding="5%"
-                              paddingBottom="20%"
-                              backgroundColor="RGBA(0, 0, 0, 0.06)"
-                            ></Image>
-                            <Text
-                              display="flex"
-                              alignItems="center"
-                              fontSize="2xl"
-                              position="absolute"
-                              bottom="1%"
-                              left="17%"
-                            >
-                              <Box marginRight="4">
-                                <FaMapMarkedAlt />
-                              </Box>
-                              Odvožena ruta
-                            </Text>
                           </GridItem>
                         </Grid>
                       </ModalBody>

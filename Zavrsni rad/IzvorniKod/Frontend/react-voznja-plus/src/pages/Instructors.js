@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 import { FaUser } from 'react-icons/fa6';
+import { CiMail } from 'react-icons/ci';
 
 import { Grid, GridItem, Flex, Image, Text, Box } from '@chakra-ui/react';
 
@@ -70,7 +71,17 @@ export default function Instructors() {
                   boxSize="25em"
                   padding="1%"
                   marginBottom="3em"
+                  _hover={{
+                    cursor: 'pointer'
+                  }}
+                  onClick={() => handleClickOnUser(user.email)}
                 ></Image>
+                <Text fontSize="xl" display="flex" alignItems="center">
+                  <Box marginRight="4">
+                    <FaUser />
+                  </Box>
+                  {user.role.toUpperCase()}
+                </Text>
                 <Text
                   fontSize="3xl"
                   _hover={{
@@ -80,11 +91,12 @@ export default function Instructors() {
                 >
                   {user.firstName} {user.lastName}
                 </Text>
+
                 <Text fontSize="xl" display="flex" alignItems="center">
                   <Box marginRight="4">
-                    <FaUser />
+                    <CiMail />
                   </Box>
-                  {user.role.toUpperCase()}
+                  {user.email}
                 </Text>
               </Flex>
             </GridItem>

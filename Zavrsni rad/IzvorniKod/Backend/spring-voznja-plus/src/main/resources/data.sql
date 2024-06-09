@@ -57,11 +57,11 @@ VALUES
 -- Inserting sample data into the calendar_events table
 INSERT INTO calendar_events (title, start_time, end_time, student_id, instructor_id)
 VALUES
-    ('Mathematics Exam', '2024-06-05T10:00:00Z', '2024-06-05T12:00:00Z', (SELECT id FROM users WHERE email = 'iva.svalina@example.com'), NULL),
-    ('Physics Lecture', '2024-06-06T08:00:00Z', '2024-06-06T10:00:00Z', (SELECT id FROM users WHERE email = 'iva.svalina@example.com'), NULL),
-    ('Chemistry Lab', '2024-06-07T14:00:00Z', '2024-06-07T16:00:00Z', (SELECT id FROM users WHERE email = 'iva.svalina@example.com'), NULL),
-    ('History Presentation', '2024-06-08T11:00:00Z', '2024-06-08T13:00:00Z', (SELECT id FROM users WHERE email = 'iva.svalina@example.com'), NULL),
-    ('Computer Science Workshop', '2024-06-09T09:00:00Z', '2024-06-09T11:00:00Z', (SELECT id FROM users WHERE email = 'iva.svalina@example.com'), NULL);
+    ('Termin 1', '2024-06-05T10:00:00Z', '2024-06-05T12:00:00Z', (SELECT id FROM users WHERE email = 'iva.svalina@example.com'), NULL),
+    ('Termin 2', '2024-06-06T08:00:00Z', '2024-06-06T10:00:00Z', (SELECT id FROM users WHERE email = 'iva.svalina@example.com'), NULL),
+    ('Termin 3', '2024-06-07T14:00:00Z', '2024-06-07T16:00:00Z', (SELECT id FROM users WHERE email = 'iva.svalina@example.com'), NULL),
+    ('Termin 4', '2024-06-08T11:00:00Z', '2024-06-08T13:00:00Z', (SELECT id FROM users WHERE email = 'iva.svalina@example.com'), NULL),
+    ('Termin 5', '2024-06-09T09:00:00Z', '2024-06-09T11:00:00Z', (SELECT id FROM users WHERE email = 'iva.svalina@example.com'), NULL);
 
 --Inserting sample data into images
 
