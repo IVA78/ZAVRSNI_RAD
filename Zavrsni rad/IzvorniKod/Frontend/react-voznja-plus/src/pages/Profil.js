@@ -26,6 +26,7 @@ export default function Profil() {
   const [email, setEmail] = useState('email');
   const [phone, setPhone] = useState('broj mobitela');
   const [note, setNote] = useState('note');
+  const [imageData, setImageData] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
 
   const token = sessionStorage.getItem('token');
@@ -52,6 +53,29 @@ export default function Profil() {
       .catch((error) => {
         //izgeneriraj Toast komponentu za neuspjesan login
         console.log('Dogodila se pogreska: ', error);
+      });
+
+    console.log('email: ', email);
+    fetch('/api/image/get', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token,
+        userEmail: email
+      }
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('No data found');
+        }
+
+        return response.json();
+      })
+      .then((response) => {
+        setImageData(response);
+      })
+      .catch((error) => {
+        console.log('Dogodila se pogreska sa slikom: ', error);
       });
 
     if (!isEditing) {
@@ -120,7 +144,7 @@ export default function Profil() {
             left={{ base: '6%', lg: '10%' }}
           ></Box>
           <Image
-            src="/images/me.jpg"
+            src={imageData ? imageData.path : ''}
             alt="user_image"
             borderRadius="full"
             boxSize="25em"

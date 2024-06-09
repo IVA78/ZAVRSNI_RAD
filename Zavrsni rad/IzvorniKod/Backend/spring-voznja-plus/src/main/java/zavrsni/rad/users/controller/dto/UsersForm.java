@@ -1,5 +1,7 @@
 package zavrsni.rad.users.controller.dto;
 
+import zavrsni.rad.image.controller.dto.ImageDTO;
+
 public class UsersForm {
 
     private String firstName;
@@ -8,14 +10,17 @@ public class UsersForm {
 
     private String email;
 
+    private ImageDTO imageDTO;
+
     public UsersForm() {
     }
 
-    public UsersForm(String firstName, String lastName, String role, String email) {
+    public UsersForm(String firstName, String lastName, String role, String email, ImageDTO imageDTO) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.role = role;
         this.email = email;
+        this.imageDTO = imageDTO;
     }
 
     public String getEmail() {
@@ -32,5 +37,13 @@ public class UsersForm {
 
     public String getRole() {
         return role;
+    }
+
+    public ImageDTO getImageDTO() {
+        return imageDTO;
+    }
+
+    public void setImageDTO(ImageDTO imageDTO) {
+        this.imageDTO = imageDTO;
     }
 }

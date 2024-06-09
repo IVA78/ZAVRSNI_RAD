@@ -4,6 +4,9 @@ package zavrsni.rad.users.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import zavrsni.rad.image.controller.dto.ImageDTO;
+import zavrsni.rad.image.entity.Image;
+import zavrsni.rad.image.repository.ImageRepository;
 import zavrsni.rad.users.controller.dto.DataForm;
 import zavrsni.rad.users.controller.dto.UsersForm;
 import zavrsni.rad.users.entity.User;
@@ -20,6 +23,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ImageRepository imageRepository;
 
     public User login(String email) {
         return userRepository.findUserByEmail(email);
@@ -51,7 +57,9 @@ public class UserService {
 
             for(User selectedUser : userRepository.findAllByRole(role)) {
                 System.out.println("User email: "+ selectedUser.getEmail());
-                users.add(new UsersForm(selectedUser.getFirstName(), selectedUser.getLastName(), selectedUser.getRole(), selectedUser.getEmail()));
+                Image image = imageRepository.findByUserId(selectedUser.getId());
+                ImageDTO imageDTO = new ImageDTO(image.getPath(), image.getType());
+                users.add(new UsersForm(selectedUser.getFirstName(), selectedUser.getLastName(), selectedUser.getRole(), selectedUser.getEmail(), imageDTO));
             }
 
         }

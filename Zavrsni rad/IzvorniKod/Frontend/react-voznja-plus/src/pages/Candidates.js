@@ -35,6 +35,7 @@ export default function Candidates() {
       })
       .then((response) => {
         console.log(response);
+        console.log(response);
         setUsers(response);
       })
       .catch((error) => {
@@ -66,7 +67,7 @@ export default function Candidates() {
             >
               <Flex direction="column" alignItems="center">
                 <Image
-                  src="/images/me.jpg"
+                  src={user.imageDTO ? user.imageDTO.path : ''}
                   alt="user_image"
                   boxSize="25em"
                   padding="1%"

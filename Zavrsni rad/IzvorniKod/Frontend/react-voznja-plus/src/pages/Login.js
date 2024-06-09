@@ -14,7 +14,10 @@ import {
   FormHelperText,
   Box,
   Button,
-  useToast
+  useToast,
+  Grid,
+  GridItem,
+  Text
 } from '@chakra-ui/react';
 
 export default function Login() {
@@ -86,6 +89,19 @@ export default function Login() {
   return (
     <>
       <Navbar></Navbar>
+      <Grid
+        justifyContent="center"
+        alignItems="center"
+        backgroundColor="RGBA(0, 0, 0, 0.08)"
+        marginTop="5em"
+      >
+        <GridItem display="flex" justifyContent="center">
+          <Text fontSize="2xl" textAlign="center">
+            Nemaš potrebne podatke za prijavu? Kontaktiraj autoškolu putem
+            kontaktnog obrasca klikom na "Kontakt".
+          </Text>
+        </GridItem>
+      </Grid>
       <Box position="relative" width="100%" marginTop="3em" marginBottom="3em">
         <Image
           src="/images/road.jpg"
@@ -93,8 +109,9 @@ export default function Login() {
           width="100%"
           height="100%"
           objectFit="cover"
-          padding="1em"
-          backgroundColor="black"
+          padding=".5em"
+          borderRadius="md"
+          backgroundColor="RGBA(0, 0, 0, 0.08)"
         />
         <Box
           position="absolute"
@@ -106,7 +123,6 @@ export default function Login() {
           padding="1em"
           color="white"
           borderRadius="md"
-          border="solid black"
           width={{ base: '40%', lg: '30%' }}
           height={{ base: '60%', lg: '40%' }}
           fontSize="3em"
@@ -145,6 +161,7 @@ export default function Login() {
           </Button>
         </Box>
       </Box>
+
       <Footer></Footer>
     </>
   );

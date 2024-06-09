@@ -65,7 +65,7 @@ export default function Instructors() {
             >
               <Flex direction="column" alignItems="center">
                 <Image
-                  src="/images/me.jpg"
+                  src={user.imageDTO ? user.imageDTO.path : ''}
                   alt="user_image"
                   boxSize="25em"
                   padding="1%"
