@@ -10,8 +10,6 @@ public class DrivingHoursDTO {
     private LessonStatus status;
     private String note;
 
-    //slika!
-
 
     public DrivingHoursDTO() {
     }

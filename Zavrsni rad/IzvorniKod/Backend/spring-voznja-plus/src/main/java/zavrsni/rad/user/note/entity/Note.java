@@ -45,5 +45,4 @@ public class Note {
         this.user = user;
     }
 
-
 }
