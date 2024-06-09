@@ -14,6 +14,7 @@ import Progress from './pages/Progress';
 import StudentProgress from './pages/StudentProgress';
 import MyCalendar from './pages/MyCalendar';
 import UserCalendar from './pages/UserCalendar';
+import Register from './pages/Register';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <div className="app-container">
         <Routes>
           <Route path="/home" element={<Home />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/" element={<Home />} />
           <Route path="/info" element={<Info />} />
           <Route path="/login" element={<Login />} />

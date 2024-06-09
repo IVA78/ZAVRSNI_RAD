@@ -34,6 +34,26 @@ public class NoteService {
 
     }
 
+    public boolean add(String noteContent, Long userId) {
+
+        //provjera?
+        User user = userRepository.findByUserId(userId);
+        Long id = user.getId();
+
+        if(user != null ){
+
+            Note note = new Note();
+            note.setContent(noteContent);
+            note.setUserId(userId);
+            noteRepository.save(note);
+            System.out.println("Returing true" );
+            return true;
+        } else {
+            System.out.println("Returing false" );
+            return false;
+        }
+    }
+
     @Transactional
     public boolean changeNote(String username, String content) {
         String email = username;

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import zavrsni.rad.security.configuration.JWTGenerator;
 import zavrsni.rad.users.controller.dto.DataForm;
 import zavrsni.rad.users.controller.dto.RoleForm;
+import zavrsni.rad.users.controller.dto.UserRegisterForm;
 import zavrsni.rad.users.controller.dto.UsersForm;
 import zavrsni.rad.users.service.UserService;
 
@@ -34,6 +35,14 @@ public class DataController {
     public ResponseEntity<List<UsersForm>> getAllUsersBasedOnRole(@RequestHeader("Authorization") String token, @RequestHeader("Role") String role) {
         List<UsersForm> users = userService.getUsersData(jwtGenerator.getUsernameFromJWT(token), role);
         return ResponseEntity.ok(users);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<Long> register(@RequestHeader("Authorization") String token, @RequestBody UserRegisterForm userRegisterForm) {
+
+        Long userId = userService.register(userRegisterForm);
+        return ResponseEntity.ok(userId);
+
     }
 
 

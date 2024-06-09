@@ -212,7 +212,7 @@ export default function Profil() {
                   width="100%"
                 >
                   <Textarea
-                    value={note}
+                    value={note ? note : 'Napiši bilješku'}
                     onChange={handleNoteChange}
                     placeholder="Edit your note here..."
                     size="lg"
@@ -241,7 +241,7 @@ export default function Profil() {
                   height="6em"
                   onClick={() => setIsEditing(!isEditing)}
                 >
-                  {note}
+                  {note ? note : 'Napiši bilješku'}
                 </Text>
               )}
             </Box>

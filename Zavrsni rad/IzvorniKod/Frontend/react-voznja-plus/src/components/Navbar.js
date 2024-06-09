@@ -43,6 +43,7 @@ export default function Navbar() {
     'Profil',
     'Instruktori',
     'Kandidati',
+    'Registriraj',
     'Odjava'
   ];
 
@@ -56,7 +57,8 @@ export default function Navbar() {
     Napredak: '/progress', //isto id
     Odjava: '/logout',
     Kandidati: '/candidates', //isto id
-    Instruktori: '/instructors'
+    Instruktori: '/instructors',
+    Registriraj: '/register'
   };
 
   let lista;

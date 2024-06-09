@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
+import zavrsni.rad.user.note.controller.dto.AddNoteForm;
 import zavrsni.rad.user.note.controller.dto.NoteForm;
 import zavrsni.rad.user.note.service.NoteService;
 import zavrsni.rad.security.configuration.JWTGenerator;
@@ -19,11 +20,25 @@ public class NoteController {
     @Autowired
     private JWTGenerator jwtGenerator;
 
+    @PostMapping("/add")
+    public ResponseEntity<Void> add(@RequestHeader("Authorization") String token,
+                                    @RequestBody AddNoteForm addNoteForm) {
+
+        System.out.println("In controller");
+        boolean done = noteService.add(addNoteForm.getNote(), addNoteForm.getUserId());
+
+        if(done) {
+            System.out.println("Note added!");
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            throw new UsernameNotFoundException("Pogreska!");
+        }
+    }
+
     @GetMapping("/get")
     public ResponseEntity<NoteForm> getNote(@RequestHeader("Authorization") String token){
         NoteForm noteForm = noteService.getNote(jwtGenerator.getUsernameFromJWT(token));
         return ResponseEntity.ok(noteForm);
-
     }
 
 

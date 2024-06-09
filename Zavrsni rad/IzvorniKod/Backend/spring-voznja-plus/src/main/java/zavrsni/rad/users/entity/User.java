@@ -41,10 +41,6 @@ public class User {
     @Column(name="phonenumber", nullable = false)
     private String phoneNumber;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "note_id", referencedColumnName = "id")
-    private Note note;
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DrivingHours> drivingHours;
 
@@ -120,13 +116,6 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public Note getNote() {
-        return note;
-    }
-
-    public void setNote(Note note) {
-        this.note = note;
-    }
 
     public List<DrivingHours> getDrivingHours() {
         return drivingHours;

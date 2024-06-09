@@ -3,20 +3,21 @@ package zavrsni.rad.users.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import zavrsni.rad.image.controller.dto.ImageDTO;
 import zavrsni.rad.image.entity.Image;
 import zavrsni.rad.image.repository.ImageRepository;
+import zavrsni.rad.user.note.repository.NoteRepository;
 import zavrsni.rad.users.controller.dto.DataForm;
+import zavrsni.rad.users.controller.dto.UserRegisterForm;
 import zavrsni.rad.users.controller.dto.UsersForm;
 import zavrsni.rad.users.entity.User;
 import zavrsni.rad.users.repository.UserRepository;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -26,6 +27,28 @@ public class UserService {
 
     @Autowired
     private ImageRepository imageRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+
+    public Long register(UserRegisterForm userRegisterForm) {
+        User newUser = new User();
+        newUser.setRole(userRegisterForm.getRole());
+        newUser.setFirstName(userRegisterForm.getFirstName());
+        newUser.setLastName(userRegisterForm.getLastName());
+        newUser.setEmail(userRegisterForm.getEmail());
+        newUser.setDateOfBirth(userRegisterForm.getDateOfBirth());
+        newUser.setPassword(passwordEncoder.encode(userRegisterForm.getPassword()));
+        newUser.setPhoneNumber(userRegisterForm.getPhoneNumber());
+
+        userRepository.save(newUser);
+
+        User savedUsed = userRepository.findUserByEmail(userRegisterForm.getEmail());
+
+        return savedUsed.getId();
+    }
+
 
     public User login(String email) {
         return userRepository.findUserByEmail(email);

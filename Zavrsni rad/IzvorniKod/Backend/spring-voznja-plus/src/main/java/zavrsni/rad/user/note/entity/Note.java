@@ -15,10 +15,8 @@ public class Note {
     @Column(name = "content", columnDefinition = "TEXT")
     private String content;
 
-    @OneToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "user_id", insertable = false, updatable = false)
-    private User user;
+    @Column(name = "user_id", columnDefinition = "TEXT")
+    private Long userId;
 
     // Getters and Setters
     public Long getId() {
@@ -37,12 +35,11 @@ public class Note {
         this.content = content;
     }
 
-    public User getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
-
 }
