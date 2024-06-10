@@ -3,6 +3,7 @@ package zavrsni.rad.driving.hours.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import zavrsni.rad.driving.hours.controller.dto.DrivingHoursDTO;
+import zavrsni.rad.driving.hours.controller.dto.DrivingHoursForm;
 import zavrsni.rad.driving.hours.entity.DrivingHours;
 import zavrsni.rad.driving.hours.repository.DrivingHoursRepository;
 import zavrsni.rad.users.entity.User;
@@ -19,6 +20,21 @@ public class DrivingHoursService {
 
     @Autowired
     private UserRepository userRepository;
+
+
+    public void add(DrivingHoursForm drivingHoursForm) {
+
+        User user = userRepository.findUserByEmail(drivingHoursForm.getEmail());
+
+        DrivingHours drivingHours = new DrivingHours();
+        drivingHours.setField(drivingHoursForm.getField());
+        drivingHours.setDate(drivingHoursForm.getDate());
+        drivingHours.setNote(drivingHoursForm.getNote());
+        drivingHours.setStatus(drivingHoursForm.getStatus());
+        drivingHours.setUser_id(user.getId());
+
+        drivingHoursRepository.save(drivingHours);
+    }
 
 
     //student sees his notes

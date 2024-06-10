@@ -41,8 +41,6 @@ public class User {
     @Column(name="phonenumber", nullable = false)
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<DrivingHours> drivingHours;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "student_id", referencedColumnName = "id")
@@ -117,13 +115,6 @@ public class User {
     }
 
 
-    public List<DrivingHours> getDrivingHours() {
-        return drivingHours;
-    }
-
-    public void setDrivingHours(List<DrivingHours> drivingHours) {
-        this.drivingHours = drivingHours;
-    }
 
     public List<CalendarEvents> getCalendarEvents() {
         return calendarEvents;

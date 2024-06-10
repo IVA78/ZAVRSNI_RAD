@@ -79,6 +79,7 @@ export default function Register() {
       const token = sessionStorage.getItem('token');
 
       //post user
+      console.log('form role: ', formData.role);
       const registerResponse = await fetch('/api/data/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: token },
@@ -182,9 +183,19 @@ export default function Register() {
                 onChange={handleChange}
                 border="1px solid black"
               >
-                <option value="kandidat">kandidat</option>
-                <option value="instruktor">instruktor</option>
-                <option value="administrator">administrator</option>
+                <option value="" disabled>
+                  Izaberite ulogu
+                </option>
+                <option value="kandidat" name="role">
+                  kandidat
+                </option>
+                <option value="instruktor" name="role">
+                  {' '}
+                  instruktor
+                </option>
+                <option value="administrator" name="role">
+                  administrator
+                </option>
               </Select>
             </FormControl>
 

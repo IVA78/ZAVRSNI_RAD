@@ -27,13 +27,18 @@ import {
   ModalContent,
   useDisclosure,
   ModalCloseButton,
-  Image,
-  Button
+  Textarea,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  Select,
+  ModalFooter,
+  useToast
 } from '@chakra-ui/react';
 
 import { MdDateRange, MdEditNote } from 'react-icons/md';
 import { FaCheck } from 'react-icons/fa';
-import { FaMapMarkedAlt } from 'react-icons/fa';
 
 export default function StudentProgress() {
   const [stepsA, setStepsA] = useState([]);
@@ -46,9 +51,26 @@ export default function StudentProgress() {
   const [drivingHoursBLength, setDrivingHoursBLength] = useState(0);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const toast = useToast();
+
+  const {
+    isOpen: isSecondModalOpen,
+    onOpen: onSecondModalOpen,
+    onClose: onSecondModalClose
+  } = useDisclosure();
+
   const [modalData, setModalData] = useState(null);
   const [backendData, setBackendData] = useState(null);
   const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    field: '',
+    date: '',
+    status: '',
+    note: '',
+    email: ''
+  });
 
   const token = sessionStorage.getItem('token');
 
@@ -112,17 +134,57 @@ export default function StudentProgress() {
     navigate('/usercalendar');
   };
 
+  const resetForm = () => {
+    setFormData({ field: '', date: '', status: '', note: '', email: '' });
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async () => {
+    // Logika za slanje forme na backend
+    try {
+      const response = await fetch('/api/driving_hours/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: token },
+        body: JSON.stringify(formData)
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      console.log(data);
+      onSecondModalClose();
+    } catch (error) {
+      console.error('Neuspješno spremanje bilješke na poslužitelj', error);
+    }
+
+    resetForm();
+    toast({
+      title: 'Uspješno spremljena bilješka!',
+      description: 'Uspješno ste spremili novu bilješku.',
+      status: 'success',
+      duration: 5000,
+      isClosable: true
+    });
+  };
+
   return (
     <>
       <Navbar></Navbar>
       <Grid
-        templateColumns="repeat(4,1fr)"
+        templateColumns="repeat(2,1fr)"
         justifyContent="center"
         alignItems="center"
+        mt={4}
       >
-        <GridItem colSpan={4} margin="1em">
+        <GridItem colSpan={4} margin="1em" gap={4}>
           <Button
-            mt={4}
+            m={4}
             colorScheme="white"
             color="black"
             variant="outline"
@@ -130,10 +192,117 @@ export default function StudentProgress() {
             _hover={{ color: 'white', bg: 'RGBA(23,24,16)' }}
             onClick={toCalendar}
             justifySelf="end"
+            width="sm"
           >
             Pogledaj kalendar
           </Button>
+
+          <Button
+            m={4}
+            colorScheme="white"
+            color="black"
+            variant="outline"
+            borderColor="RGBA(23,24,16)"
+            _hover={{ color: 'white', bg: 'RGBA(23,24,16)' }}
+            onClick={onSecondModalOpen}
+            justifySelf="end"
+            width="sm"
+          >
+            Upiši bilješku
+          </Button>
+
+          <Modal isOpen={isSecondModalOpen} onClose={onSecondModalClose}>
+            <ModalContent>
+              <ModalHeader>Unos bilješke za održani sat</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                <FormControl isRequired>
+                  <FormLabel htmlFor="field">Polje</FormLabel>
+                  <Select
+                    id="field"
+                    name="field"
+                    value={formData.field}
+                    onChange={handleChange}
+                    placeholder="Izaberite polje"
+                  >
+                    <option value="V">Vežbalište</option>
+                    <option value="C">Otvorena cesta</option>
+                  </Select>
+                </FormControl>
+
+                <FormControl isRequired>
+                  <FormLabel htmlFor="date">Datum</FormLabel>
+                  <Input
+                    id="date"
+                    name="date"
+                    type="date"
+                    value={formData.date}
+                    onChange={handleChange}
+                  />
+                </FormControl>
+
+                <FormControl isRequired>
+                  <FormLabel htmlFor="status">Status</FormLabel>
+                  <Select
+                    id="status"
+                    name="status"
+                    value={formData.status}
+                    onChange={handleChange}
+                    border="1px solid black"
+                  >
+                    <option value="" disabled>
+                      Izaberite status
+                    </option>
+                    <option value="USPJEH">uspješno savladano</option>
+                    <option value="NEUSPJEH">neuspješno savladano</option>
+                    <option value="DODATNO_VJEZBATI">
+                      solidan pokušaj: dodatno vježbati
+                    </option>
+                  </Select>
+                </FormControl>
+
+                <FormControl isRequired>
+                  <FormLabel htmlFor="note">Bilješka</FormLabel>
+                  <Textarea
+                    id="note"
+                    name="note"
+                    value={formData.note}
+                    onChange={handleChange}
+                  />
+                </FormControl>
+
+                <FormControl isRequired>
+                  <FormLabel htmlFor="email">Email</FormLabel>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                  />
+                </FormControl>
+              </ModalBody>
+
+              <ModalFooter>
+                <Button
+                  mt={4}
+                  mr={3}
+                  colorScheme="white"
+                  color="RGBA(23,24,16)"
+                  variant="outline"
+                  borderColor="RGBA(23,24,16)"
+                  _hover={{ color: 'white', bg: 'RGBA(23,24,16)' }}
+                  marginTop={{ base: '1em', lg: '3em' }}
+                  margin="1em"
+                  onClick={handleSubmit}
+                >
+                  Spremi
+                </Button>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
         </GridItem>
+
         <GridItem
           colSpan={{ base: 3, lg: 2 }}
           display="flex"

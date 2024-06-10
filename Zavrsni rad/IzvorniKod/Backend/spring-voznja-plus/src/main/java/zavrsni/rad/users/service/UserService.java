@@ -34,6 +34,7 @@ public class UserService {
 
     public Long register(UserRegisterForm userRegisterForm) {
         User newUser = new User();
+        System.out.println("Role: " + "|" + userRegisterForm.getRole() + "|");
         newUser.setRole(userRegisterForm.getRole());
         newUser.setFirstName(userRegisterForm.getFirstName());
         newUser.setLastName(userRegisterForm.getLastName());

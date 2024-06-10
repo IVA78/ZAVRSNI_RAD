@@ -16,7 +16,6 @@ public enum LessonStatus {
         return status;
     }
 
-
     @Override
     public String toString() {
         return this.status;

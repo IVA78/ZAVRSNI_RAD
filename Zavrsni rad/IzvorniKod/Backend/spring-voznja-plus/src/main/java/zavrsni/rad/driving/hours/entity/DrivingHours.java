@@ -1,9 +1,6 @@
 package zavrsni.rad.driving.hours.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-import zavrsni.rad.users.entity.User;
 
 import java.time.LocalDate;
 
@@ -27,22 +24,18 @@ public class DrivingHours {
     @Column(name = "note", columnDefinition = "TEXT")
     private String note;
 
-    //slika!
-
-    @ManyToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "user_id", insertable = false, updatable = false)
-    private User user;
+    @Column(name="user_id", nullable = false)
+    private Long user_id;
 
     public DrivingHours() {
     }
 
-    public DrivingHours(String field, LocalDate date, LessonStatus status, String note, User user) {
+    public DrivingHours(String field, LocalDate date, LessonStatus status, String note, Long user_id) {
         this.field = field;
         this.date = date;
         this.status = status;
         this.note = note;
-        this.user = user;
+        this.user_id = user_id;
     }
 
     public String getField() {
@@ -62,7 +55,7 @@ public class DrivingHours {
     }
 
     public LessonStatus getStatus() {
-        return status;
+        return this.status;
     }
 
     public void setStatus(LessonStatus status) {
@@ -77,11 +70,11 @@ public class DrivingHours {
         this.note = note;
     }
 
-    public User getUser() {
-        return user;
+    public Long getUser_id() {
+        return user_id;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
     }
 }

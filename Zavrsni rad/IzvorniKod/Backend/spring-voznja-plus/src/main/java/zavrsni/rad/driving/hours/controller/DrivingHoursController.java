@@ -1,12 +1,11 @@
 package zavrsni.rad.driving.hours.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import zavrsni.rad.driving.hours.controller.dto.DrivingHoursDTO;
+import zavrsni.rad.driving.hours.controller.dto.DrivingHoursForm;
 import zavrsni.rad.driving.hours.service.DrivingHoursService;
 import zavrsni.rad.security.configuration.JWTGenerator;
 
@@ -21,6 +20,15 @@ public class DrivingHoursController {
 
     @Autowired
     private JWTGenerator jwtGenerator;
+
+    @PostMapping("/add")
+    public ResponseEntity<Void> add(@RequestHeader("Authorization") String token, @RequestBody DrivingHoursForm drivingHoursForm){
+
+        drivingHoursService.add(drivingHoursForm);
+        System.out.println("Bilješka za sat je uspešno dodana!");
+        return new ResponseEntity<>(HttpStatus.OK);
+
+    }
 
     @GetMapping("/get")
     public ResponseEntity<List<DrivingHoursDTO>> get(@RequestHeader("Authorization") String token, @RequestHeader("StudentEmail") String studentEmail){
