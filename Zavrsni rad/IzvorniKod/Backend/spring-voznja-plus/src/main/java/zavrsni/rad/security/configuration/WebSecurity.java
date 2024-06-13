@@ -51,7 +51,9 @@ public class WebSecurity {
         http
                 .authorizeHttpRequests((authorizeHttpRequests) ->
                         authorizeHttpRequests.requestMatchers(new AntPathRequestMatcher("/login")).permitAll()
-                                             .anyRequest().permitAll());
+                                .requestMatchers(new AntPathRequestMatcher("/register")).hasRole("ADMINISTRATOR")
+                                             .anyRequest().permitAll())
+                ;
 
 
 

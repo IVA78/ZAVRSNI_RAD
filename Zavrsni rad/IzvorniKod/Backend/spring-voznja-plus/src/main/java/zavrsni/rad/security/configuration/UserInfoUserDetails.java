@@ -26,6 +26,7 @@ public class UserInfoUserDetails implements UserDetails {
         authorities = commaSeparatedStringToAuthorityList("ROLE_" + user.getRole().toUpperCase());
 
         System.out.println("UserInfoUserDetails: " + username + " " + password + " " + authorities);
+
     }
 
     @Override

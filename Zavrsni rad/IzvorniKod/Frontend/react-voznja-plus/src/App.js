@@ -15,6 +15,7 @@ import StudentProgress from './pages/StudentProgress';
 import MyCalendar from './pages/MyCalendar';
 import UserCalendar from './pages/UserCalendar';
 import Register from './pages/Register';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   return (
@@ -22,28 +23,40 @@ function App() {
       <div className="app-container">
         <Routes>
           <Route path="/home" element={<Home />} />
-          <Route path="/register" element={<Register />} />
+          <Route
+            path="/register"
+            element={<PrivateRoute component={Register} />}
+          />
           <Route path="/" element={<Home />} />
           <Route path="/info" element={<Info />} />
           <Route path="/login" element={<Login />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/logout" element={<Logout />} />
-          <Route path="/profil" element={<Profil />} />
-          <Route path="/candidates" element={<Candidates></Candidates>}></Route>
-          <Route path="/progress" element={<Progress></Progress>}></Route>
+          <Route path="/profil" element={<PrivateRoute component={Profil} />} />
+          <Route
+            path="/candidates"
+            element={<PrivateRoute component={Candidates} />}
+          ></Route>
+          <Route
+            path="/progress"
+            element={<PrivateRoute component={Progress} />}
+          ></Route>
           <Route
             path="/studentProgress"
-            element={<StudentProgress></StudentProgress>}
+            element={<PrivateRoute component={StudentProgress} />}
           ></Route>
-          <Route path="/mycalendar" element={<MyCalendar></MyCalendar>}></Route>
+          <Route
+            path="/mycalendar"
+            element={<PrivateRoute component={MyCalendar} />}
+          ></Route>
           <Route
             path="/usercalendar"
-            element={<UserCalendar></UserCalendar>}
+            element={<PrivateRoute component={UserCalendar} />}
           ></Route>
 
           <Route
             path="/instructors"
-            element={<Instructors></Instructors>}
+            element={<PrivateRoute component={Instructors} />}
           ></Route>
         </Routes>
       </div>

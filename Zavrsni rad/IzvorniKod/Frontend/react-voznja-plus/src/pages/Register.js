@@ -77,6 +77,7 @@ export default function Register() {
 
     try {
       const token = sessionStorage.getItem('token');
+      console.log('token sent: ' + token);
 
       //post user
       console.log('form role: ', formData.role);
