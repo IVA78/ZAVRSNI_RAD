@@ -1,0 +1,119 @@
+\documentclass[12pt]{report}
+
+% Uklonite ili komentirajte liniju koja uključuje kpfonts paket
+%\usepackage[classicReIm]{kpfonts}
+
+% Dodajte paket za Arial font
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+
+% Dodajte paket za podešavanje proreda
+\usepackage{setspace}
+
+% Podešavanje proreda na 1,5 redak
+\onehalfspacing
+
+% Dodajte paket za podešavanje margina
+\usepackage[a4paper, left=3cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
+
+\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+\usepackage[croatian]{babel}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{txfonts}
+\usepackage{mathdots}
+\usepackage{titlesec}
+\usepackage{array}
+\usepackage{lastpage}
+\usepackage{etoolbox}
+\usepackage{tabularray}
+\usepackage{color, colortbl}
+\usepackage{adjustbox}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{fancyhdr}
+
+\usepackage{float}
+\usepackage{ragged2e}
+
+\usepackage{comment}
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Dodavanje paketa za naslove tablica
+\usepackage{caption}
+
+% Oblik naslova poglavlja
+\titleformat{\chapter}{\normalfont\huge\bfseries}{\thechapter.}{20pt}{\Huge}
+\titlespacing{\chapter}{0pt}{0pt}{40pt}
+
+\hypersetup{colorlinks, citecolor=black, filecolor=black, linkcolor=black, urlcolor=black}   % Izgled poveznice
+
+% Prored smanjen između redaka u nabrajanjima i popisima
+\newenvironment{packed_enum}{
+    \begin{enumerate}
+        \setlength{\itemsep}{0pt}
+        \setlength{\parskip}{0pt}
+        \setlength{\parsep}{0pt}
+    }{\end{enumerate}}
+
+\newenvironment{packed_item}{
+    \begin{itemize}
+        \setlength{\itemsep}{0pt}
+        \setlength{\parskip}{0pt}
+        \setlength{\parsep}{0pt}
+    }{\end{itemize}}
+
+% Boja za privatni i udaljeni ključ u tablicama
+\definecolor{LightBlue}{rgb}{0.9,0.9,1}
+\definecolor{LightGreen}{rgb}{0.9,1,0.9}
+
+% Promjena teksta za dugačke tablice
+\DefTblrTemplate{contfoot-text}{normal}{Nastavljeno na idućoj stranici}
+\SetTblrTemplate{contfoot-text}{normal}
+\DefTblrTemplate{conthead-text}{normal}{(Nastavljeno)}
+\SetTblrTemplate{conthead-text}{normal}
+\DefTblrTemplate{middlehead,lasthead}{normal}{Nastavljeno od prethodne stranice}
+\SetTblrTemplate{middlehead,lasthead}{normal}
+
+% Prilagodba stila sadržaja
+\usepackage{tocloft}
+\renewcommand{\cfttoctitlefont}{\normalfont\Large\bfseries}
+\renewcommand{\cftsecfont}{\normalfont}
+\renewcommand{\cftsecpagefont}{\normalfont}
+
+% Dodavanje točkica u sadržaj
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsubsecleader}{\cftdotfill{\cftdotsep}}
+
+\begin{document}
+    \pagenumbering{gobble} % Isključi brojeve stranica za početne stranice
+
+    \newpage
+    \thispagestyle{empty} % Prva prazna stranica
+    \mbox{}
+
+    \newpage
+    \renewcommand{\contentsname}{Sadržaj} % Promjena naslova sadržaja
+    \tableofcontents
+
+    % Postavljanje brojača stranica na 1 i ponovno uključivanje brojeva stranica
+    \cleardoublepage
+    \pagenumbering{arabic}
+    \setcounter{page}{1}
+
+    % Uvod kao poglavlje 1
+    \include{Uvod}
+    \include{Korisnički zahtjevi}
+    \include{Dizajn i arhitektura sustava}
+    \include{Implementacija}
+    \include{Sučelja web aplikacije}
+    \include{Zakljucak}
+    \include{Literatura}
+    \include{Sažetak}
+    \include{Summary}
+
+\end{document}
